@@ -1,0 +1,46 @@
+{
+  "name": "linear-vibe-cli",
+  "version": "1.0.0",
+  "description": "🚀 Linear 이슈를 CLI에서 효율적으로 관리하고 GitHub Copilot과 연동하여 생산성을 극대화하는 도구",
+  "main": "index.js",
+  "bin": {
+    "vibe": "./bin/vibe.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --project tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeoJaeWan/linear-vibe-cli.git"
+  },
+  "keywords": [
+    "linear",
+    "cli",
+    "copilot",
+    "github",
+    "productivity",
+    "issue-management",
+    "development-tools"
+  ],
+  "author": "SeoJaeWan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SeoJaeWan/linear-vibe-cli/issues"
+  },
+  "homepage": "https://github.com/SeoJaeWan/linear-vibe-cli#readme",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "clipboardy": "^4.0.0",
+    "commander": "^14.0.0",
+    "dotenv": "^17.0.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.7",
+    "@types/node-fetch": "^2.6.12",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}
