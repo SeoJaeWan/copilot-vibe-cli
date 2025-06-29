@@ -1,7 +1,7 @@
 {
   "name": "linear-vibe-cli",
   "version": "1.0.0",
-  "description": "🚀 Linear 이슈를 CLI에서 효율적으로 관리하고 GitHub Copilot과 연동하여 생산성을 극대화하는 도구",
+  "description": "🚀 Linear 이슈를 CLI에서 효율적으로 관리하고 GitHub Copilot과 연동하여 생산성을 극대화하는 도구. 이슈 조회, 생성, AI 협업 기능 제공",
   "main": "index.js",
   "bin": {
     "vibe": "./bin/vibe.js"
@@ -22,7 +22,9 @@
     "github",
     "productivity",
     "issue-management",
-    "development-tools"
+    "development-tools",
+    "issue-creation",
+    "ai-collaboration"
   ],
   "author": "SeoJaeWan",
   "license": "MIT",

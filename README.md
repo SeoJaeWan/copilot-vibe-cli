@@ -7,10 +7,11 @@ Linear 이슈를 CLI에서 효율적으로 관리하고 GitHub Copilot과 연동
 
 ## ✨ 주요 기능
 
-- 📝 **Linear 이슈 관리**: CLI에서 Linear 이슈 목록 조회
+- 📝 **Linear 이슈 관리**: CLI에서 Linear 이슈 목록 조회 및 생성
 - 🤖 **Copilot 연동**: 이슈 정보를 클립보드에 복사하여 AI와 협업
 - ⚙️ **간편한 설정**: API 토큰, 팀/프로젝트 필터링 지원
 - 🎨 **깔끔한 UI**: 컬러풀하고 직관적인 CLI 인터페이스
+- ✨ **이슈 생성**: CLI에서 바로 새로운 Linear 이슈 생성
 
 ## 🔧 설치
 
@@ -43,7 +44,13 @@ vibe config set-project YOUR_PROJECT_ID
 vibe linear list
 ```
 
-### 4. Copilot과 연동
+### 4. 새 이슈 생성
+
+```bash
+vibe issue create --title "버그 수정" --description "로그인 오류 해결 필요"
+```
+
+### 5. Copilot과 연동
 
 ```bash
 vibe copilot ISSUE_ID
@@ -76,6 +83,9 @@ vibe linear list
 # 특정 개수만큼 조회
 vibe linear list --limit 20
 vibe linear list -l 5
+
+# 새 이슈 생성
+vibe issue create --title "이슈 제목" --description "이슈 설명"
 ```
 
 ### Copilot 연동
@@ -114,6 +124,16 @@ $ vibe linear list
    상태: Done | 작성일: 2025-06-28 16:45:00
 ```
 
+### 이슈 생성
+```bash
+$ vibe issue create --title "로그인 버그 수정" --description "사용자가 로그인할 때 무한 로딩 발생"
+
+✅ 이슈가 성공적으로 생성되었습니다.
+📌 ID: 01J1234567890ABCDEF123456
+🔖 Identifier: DEV-126
+📝 Title: 로그인 버그 수정
+```
+
 ### Copilot 연동
 ```bash
 $ vibe copilot DEV-123
@@ -139,6 +159,22 @@ $ vibe copilot DEV-123
 }
 ```
 
+## 📋 전체 명령어 참조
+
+### 설정 관리 (`vibe config`)
+- `vibe config set-token <token>` - Linear API 토큰 설정
+- `vibe config set-team <teamId>` - 팀 ID 설정
+- `vibe config set-project <projectId>` - 프로젝트 ID 설정
+- `vibe config get` - 현재 설정 확인
+
+### 이슈 관리 (`vibe linear`, `vibe issue`)
+- `vibe linear list` - 이슈 목록 조회
+- `vibe linear list --limit <number>` - 특정 개수만큼 조회
+- `vibe issue create --title <title> --description <description>` - 새 이슈 생성
+
+### AI 협업 (`vibe copilot`)
+- `vibe copilot <issueId>` - 이슈 정보를 클립보드에 복사
+
 ## 🤝 기여하기
 
 1. Fork the Project
@@ -161,6 +197,8 @@ MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 
 
 - 🔄 **워크플로우 최적화**: 이슈 정보를 클립보드에 복사한 후 IDE의 Copilot Chat에 바로 붙여넣어 보세요
 - 🎯 **필터링 활용**: 팀/프로젝트 설정으로 관련 이슈만 조회하여 효율성을 높이세요
+- ⚡ **빠른 이슈 생성**: CLI에서 바로 이슈를 생성하여 아이디어를 즉시 캡처하세요
+- 🔗 **연속 작업**: 이슈 생성 후 바로 `vibe copilot` 명령어로 AI와 협업하세요
 - 📱 **크로스 플랫폼**: Windows, macOS, Linux에서 모두 사용 가능합니다
 
 ---

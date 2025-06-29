@@ -88,3 +88,47 @@ export async function fetchLinearIssueById(id: string) {
     state: { name: string };
   };
 }
+
+export async function createLinearIssue(title: string, description: string) {
+  const { token, teamId, projectId } = getConfig();
+
+  if (!token || !teamId) {
+    throw new Error("❌ 토큰 또는 teamId가 설정되지 않았습니다. `vibe config`로 먼저 설정해주세요.");
+  }
+
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        mutation {
+          issueCreate(
+            input: {
+              title: "${title}"
+              description: "${description}"
+              teamId: "${teamId}"
+              ${projectId ? `projectId: "${projectId}"` : ""}
+            }
+          ) {
+            success
+            issue {
+              id
+              identifier
+              title
+            }
+          }
+        }
+      `,
+    }),
+  });
+
+  const json = await res.json();
+  if (!json.data.issueCreate.success) {
+    throw new Error("❌ 이슈 생성에 실패했습니다.");
+  }
+
+  return json.data.issueCreate.issue;
+}
