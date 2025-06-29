@@ -1,1 +1,1 @@
-# linear-vide-cli
+# linear-vibe-cli
