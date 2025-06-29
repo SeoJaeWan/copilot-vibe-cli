@@ -1,63 +1,62 @@
 {
-  "name": "linear-vibe-cli",
-  "version": "2.1.0",
-  "description": "🚀 Linear 이슈를 CLI에서 효율적으로 관리하고 GitHub Copilot과 연동하여 생산성을 극대화하는 도구. 멀티 워크스페이스 지원, 보안 설계, 이슈 조회/생성, AI 협업 기능 제공",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "bin": {
-    "vibe": "./bin/vibe.js"
-  },
-  "scripts": {
-    "start": "node dist/index.js",
-    "dev": "tsx src/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --project tsconfig.json",
-    "clean": "rm -rf dist",
-    "prepublishOnly": "npm run clean && npm run build"
-  },
-  "files": [
-    "dist/**/*",
-    "bin/**/*",
-    "README.md",
-    "LICENSE"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/SeoJaeWan/linear-vibe-cli.git"
-  },
-  "keywords": [
-    "linear",
-    "cli",
-    "copilot",
-    "github",
-    "productivity",
-    "issue-management",
-    "development-tools",
-    "issue-creation",
-    "ai-collaboration",
-    "multi-workspace",
-    "project-management",
-    "team-collaboration",
-    "graphql",
-    "typescript"
-  ],
-  "author": "SeoJaeWan",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/SeoJaeWan/linear-vibe-cli/issues"
-  },
-  "homepage": "https://github.com/SeoJaeWan/linear-vibe-cli#readme",
-  "dependencies": {
-    "chalk": "^5.4.1",
-    "clipboardy": "^4.0.0",
-    "commander": "^14.0.0",
-    "dotenv": "^17.0.0",
-    "node-fetch": "^3.3.2"
-  },
-  "devDependencies": {
-    "@types/node": "^24.0.7",
-    "@types/node-fetch": "^2.6.12",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
-  }
+    "name": "copilot-vibe-cli",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "🚀 GitHub Copilot Chat과 vibe 코딩을 위한 생산성 극대화 도구. 코드 컨텍스트 관리, AI 협업 최적화, 개발 워크플로우 자동화 기능 제공",
+    "main": "dist/index.js",
+    "bin": {
+        "vibe": "./bin/vibe.js"
+    },
+    "scripts": {
+        "start": "node dist/index.js",
+        "dev": "tsx src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc --project tsconfig.json",
+        "clean": "rm -rf dist",
+        "prepublishOnly": "npm run clean && npm run build"
+    },
+    "files": [
+        "dist/**/*",
+        "bin/**/*",
+        "README.md",
+        "LICENSE"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/SeoJaeWan/vibe-dev-cli.git"
+    },
+    "keywords": [
+        "copilot",
+        "github",
+        "cli",
+        "productivity",
+        "development-tools",
+        "ai-collaboration",
+        "code-context",
+        "vibe-coding",
+        "workflow-automation",
+        "developer-experience",
+        "coding-assistant",
+        "project-management",
+        "typescript"
+    ],
+    "author": "SeoJaeWan",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/SeoJaeWan/vibe-dev-cli/issues"
+    },
+    "homepage": "https://github.com/SeoJaeWan/vibe-dev-cli#readme",
+    "dependencies": {
+        "chalk": "^5.4.1",
+        "clipboardy": "^4.0.0",
+        "commander": "^14.0.0",
+        "dotenv": "^17.0.0",
+        "node-fetch": "^3.3.2"
+    },
+    "devDependencies": {
+        "@types/node": "^24.0.7",
+        "@types/node-fetch": "^2.6.12",
+        "tsx": "^4.20.3",
+        "typescript": "^5.8.3"
+    }
 }
