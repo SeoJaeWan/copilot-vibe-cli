@@ -1,29 +1,14 @@
 import { Command } from "commander";
 import { fetchLinearIssueById } from "../services/linear.js";
-import { spawn } from "child_process";
 import { generateAgentFile } from "../utils/agentFile.js";
 import clipboardy from "clipboardy";
-import { execSync } from "child_process";
-
-// Copilot CLI 설치 확인 함수
-function isCopilotCliInstalled(): boolean {
-  try {
-    execSync("gh copilot --help", { stdio: "ignore" });
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 export const copilotCommand = new Command("copilot");
 
-copilotCommand.description("Linear 이슈와 AI 협업 - 이슈 정보를 클립보드에 복사");
-
 copilotCommand
-  .command("copilot")
   .description("Linear 이슈 정보를 클립보드에 복사해 Copilot에 질문할 수 있게 합니다")
   .argument("<issueId>", "Linear 이슈 ID (예: DEV-123 또는 내부 ID)")
-  .action(async (issueId, options) => {
+  .action(async (issueId) => {
 
     try {
       const issue = await fetchLinearIssueById(issueId);
