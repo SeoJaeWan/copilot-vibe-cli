@@ -5,10 +5,12 @@ import { getConfig } from "../utils/config.js";
 
 export const linearCommand = new Command("linear");
 
+linearCommand.description("Linear 이슈 조회 및 관리 - 팀/프로젝트별 이슈 목록 확인");
+
 linearCommand
   .command("list")
-  .description("Linear 이슈 목록을 출력합니다")
-  .option("-l, --limit <number>", "불러올 이슈 개수", "10")
+  .description("Linear 이슈 목록을 출력합니다 (설정된 필터 적용)")
+  .option("-l, --limit <number>", "불러올 이슈 개수 (기본값: 10)", "10")
   .action(async (options) => {
     try {
       const limit = parseInt(options.limit, 10);

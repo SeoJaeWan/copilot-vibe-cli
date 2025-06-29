@@ -11,15 +11,15 @@ export async function fetchLinearIssues(limit = 10) {
 
   const filters = [];
 
-  if (teamId) filters.push(`team: { id: "${teamId}" }`);
-  if (projectId) filters.push(`project: { id: "${projectId}" }`);
+  filters.push(`team: { id: "${teamId}" }`);
+  filters.push(`project: { id: "${projectId}" }`);
 
   const filterQuery = filters.length > 0 ? `filter: { ${filters.join(", ")} }` : "";
 
   const res = await fetch(ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -61,7 +61,7 @@ export async function fetchLinearIssueById(id: string) {
   const res = await fetch(ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -92,25 +92,33 @@ export async function fetchLinearIssueById(id: string) {
 export async function createLinearIssue(title: string, description: string) {
   const { token, teamId, projectId } = getConfig();
 
-  if (!token || !teamId) {
-    throw new Error("❌ 토큰 또는 teamId가 설정되지 않았습니다. `vibe config`로 먼저 설정해주세요.");
+  if (!token || !teamId || !projectId) {
+    throw new Error("❌ 토큰 또는 teamId, projectId가 설정되지 않았습니다. `vibe config`로 먼저 설정해주세요.");
   }
+
+  // 입력값을 안전하게 이스케이프 처리
+  const variables = {
+    title,
+    description,
+    teamId,
+    ...(projectId && { projectId })
+  };
 
   const res = await fetch(ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: token,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       query: `
-        mutation {
+        mutation CreateIssue($title: String!, $description: String!, $teamId: String!, $projectId: String) {
           issueCreate(
             input: {
-              title: "${title}"
-              description: "${description}"
-              teamId: "${teamId}"
-              ${projectId ? `projectId: "${projectId}"` : ""}
+              title: $title
+              description: $description
+              teamId: $teamId
+              projectId: $projectId
             }
           ) {
             success
@@ -122,13 +130,108 @@ export async function createLinearIssue(title: string, description: string) {
           }
         }
       `,
+      variables
     }),
   });
 
   const json = await res.json();
+  
+  if (json.errors) {
+    console.error("GraphQL Errors:", json.errors);
+    throw new Error(`❌ GraphQL 오류: ${JSON.stringify(json.errors)}`);
+  }
+  
+  if (!json.data) {
+    console.error("No data in response:", json);
+    throw new Error("❌ API 응답에 데이터가 없습니다.");
+  }
+  
+  if (!json.data.issueCreate) {
+    console.error("No issueCreate in response:", json.data);
+    throw new Error("❌ 이슈 생성 응답이 올바르지 않습니다.");
+  }
+  
   if (!json.data.issueCreate.success) {
     throw new Error("❌ 이슈 생성에 실패했습니다.");
   }
 
   return json.data.issueCreate.issue;
+}
+
+export async function fetchLinearTeams() {
+  const { token } = getConfig();
+  if (!token) throw new Error("❌ Linear API 토큰이 설정되지 않았습니다.");
+
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          teams {
+            nodes {
+              id
+              name
+              key
+            }
+          }
+        }
+      `,
+    }),
+  });
+
+  const json = await res.json();
+
+  if (json.errors) {
+    throw new Error(`GraphQL 오류: ${JSON.stringify(json.errors)}`);
+  }
+
+  return json.data.teams.nodes as {
+    id: string;
+    name: string;
+    key: string;
+  }[];
+}
+
+export async function fetchLinearProjects(teamId: string) {
+  const { token } = getConfig();
+  if (!token) throw new Error("❌ Linear API 토큰이 설정되지 않았습니다.");
+
+  const res = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          team(id: "${teamId}") {
+            projects {
+              nodes {
+                id
+                name
+                description
+              }
+            }
+          }
+        }
+      `,
+    }),
+  });
+
+  const json = await res.json();
+
+  if (json.errors) {
+    throw new Error(`GraphQL 오류: ${JSON.stringify(json.errors)}`);
+  }
+
+  return json.data.team.projects.nodes as {
+    id: string;
+    name: string;
+    description: string;
+  }[];
 }

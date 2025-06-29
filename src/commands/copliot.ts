@@ -17,10 +17,12 @@ function isCopilotCliInstalled(): boolean {
 
 export const copilotCommand = new Command("copilot");
 
+copilotCommand.description("Linear 이슈와 AI 협업 - 이슈 정보를 클립보드에 복사");
+
 copilotCommand
   .command("copilot")
   .description("Linear 이슈 정보를 클립보드에 복사해 Copilot에 질문할 수 있게 합니다")
-  .argument("<issueId>", "Linear issueId")
+  .argument("<issueId>", "Linear 이슈 ID (예: DEV-123 또는 내부 ID)")
   .action(async (issueId, options) => {
 
     try {
