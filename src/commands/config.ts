@@ -106,7 +106,6 @@ configCommand
           console.log(chalk.gray(`   ID: ${team.id}\n`));
         });
         console.log(chalk.yellow("위 목록에서 팀 ID를 복사하여 `vibe config init --team <ID>` 명령어를 다시 실행하세요"));
-        return;
       }
       
       // 프로젝트 선택
@@ -131,7 +130,7 @@ configCommand
       console.log(chalk.gray("  - API 토큰은 글로벌 설정에만 저장됩니다"));
       console.log(chalk.gray("  - 워크스페이스 설정에는 팀/프로젝트 정보만 포함됩니다"));
       console.log(chalk.blue("\n🎉 이제 다음 명령어들을 사용할 수 있습니다:"));
-      console.log(chalk.gray("  - vibe linear list"));
+      console.log(chalk.gray("  - vibe issue list"));
       console.log(chalk.gray("  - vibe issue create --title '제목' --description '설명'"));
       console.log(chalk.gray("  - vibe copilot <issueId>"));
       

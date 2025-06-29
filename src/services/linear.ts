@@ -6,15 +6,24 @@ export async function fetchLinearIssues(limit = 10) {
   const { token, teamId, projectId } = getConfig();
 
   if (!token) {
-    throw new Error("❌ Linear API 토큰이 설정되어 있지 않습니다. `vibe config set <token>` 으로 먼저 설정해주세요.");
+    throw new Error("❌ Linear API 토큰이 설정되어 있지 않습니다. `vibe config set-token <token>` 으로 먼저 설정해주세요.");
   }
 
-  const filters = [];
+  if (!teamId || !projectId) {
+    throw new Error("❌ 팀 ID와 프로젝트 ID가 설정되지 않았습니다. `vibe config init` 명령어로 설정해주세요.");
+  }
 
-  filters.push(`team: { id: "${teamId}" }`);
-  filters.push(`project: { id: "${projectId}" }`);
+  // Linear API의 올바른 필터 문법 사용
+  const filters = [];
+  if (teamId) {
+    filters.push(`team: { id: { eq: "${teamId}" } }`);
+  }
+  if (projectId) {
+    filters.push(`project: { id: { eq: "${projectId}" } }`);
+  }
 
   const filterQuery = filters.length > 0 ? `filter: { ${filters.join(", ")} }` : "";
+  const orderBy = `orderBy: createdAt`; // ID 낮은 순 정렬
 
   const res = await fetch(ENDPOINT, {
     method: "POST",
@@ -25,9 +34,11 @@ export async function fetchLinearIssues(limit = 10) {
     body: JSON.stringify({
       query: `
         query {
-          issues(first: ${limit}, ${filterQuery}) {
+          issues(first: ${limit}, ${filterQuery}, ${orderBy}) {
             nodes {
               id
+              number
+              identifier
               title
               state {
                 name
@@ -48,6 +59,8 @@ export async function fetchLinearIssues(limit = 10) {
 
   return json.data.issues.nodes as {
     id: string;
+    number: number;
+    identifier: string;
     title: string;
     state: { name: string };
     createdAt: string;
@@ -83,6 +96,8 @@ export async function fetchLinearIssueById(id: string) {
 
   return json.data.issue as {
     id: string;
+    number: number;
+    identifier: string;
     title: string;
     description: string;
     state: { name: string };
@@ -191,6 +206,8 @@ export async function fetchLinearTeams() {
 
   return json.data.teams.nodes as {
     id: string;
+    number: number;
+    identifier: string;
     name: string;
     key: string;
   }[];
@@ -231,6 +248,8 @@ export async function fetchLinearProjects(teamId: string) {
 
   return json.data.team.projects.nodes as {
     id: string;
+    number: number;
+    identifier: string;
     name: string;
     description: string;
   }[];
