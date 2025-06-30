@@ -1,6 +1,6 @@
 import {getLanguage, setLanguage as saveLanguage, type Local} from "./options.js";
-import koLocale from "../locales/ko.json" assert {type: "json"};
-import enLocale from "../locales/en.json" assert {type: "json"};
+import koLocale from "../locales/ko.json" with { type: "json" };
+import enLocale from "../locales/en.json" with { type: "json" };
 
 export interface LocaleData {
     program: {
@@ -84,19 +84,6 @@ export interface LocaleData {
             project: string;
             tags: string;
             usage: string;
-        };
-        export: {
-            description: string;
-            exporting: string;
-            success: string;
-            instruction: string;
-            note: string;
-            template: {
-                title: string;
-                packageInfo: string;
-                currentDir: string;
-                footer: string;
-            };
         };
         delete: {
             description: string;

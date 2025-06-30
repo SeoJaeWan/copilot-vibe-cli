@@ -17,11 +17,33 @@ export interface ProjectContext {
     packageInfo: string;
 }
 
-const copilotDir = join(process.cwd(), ".copilot");
-const sessionsFile = join(copilotDir, "sessions.json");
+// .copilot 디렉토리를 현재 디렉토리부터 상위로 재귀 검색
+function findCopilotDir(): string {
+    let currentDir = process.cwd();
+
+    while (true) {
+        const copilotPath = join(currentDir, ".copilot");
+        if (fs.existsSync(copilotPath)) {
+            return copilotPath;
+        }
+
+        const parentDir = join(currentDir, "..");
+        if (parentDir === currentDir) break; // reached root
+        currentDir = parentDir;
+    }
+
+    // .copilot 폴더를 찾지 못했다면 현재 작업 디렉토리에 생성
+    return join(process.cwd(), ".copilot");
+}
+
+const getCopilotDir = () => findCopilotDir();
+const getSessionsFile = () => join(getCopilotDir(), "sessions.json");
 
 // 디렉토리 및 세션 파일 초기화
 function ensureSessionsFile() {
+    const copilotDir = getCopilotDir();
+    const sessionsFile = getSessionsFile();
+
     if (!fs.existsSync(copilotDir)) {
         fs.mkdirSync(copilotDir, {recursive: true});
     }
@@ -33,6 +55,8 @@ function ensureSessionsFile() {
 // 모든 세션 로드
 function loadAllSessions(): {sessions: ChatSession[]} {
     ensureSessionsFile();
+    const sessionsFile = getSessionsFile();
+
     try {
         const content = fs.readFileSync(sessionsFile, "utf8");
         return JSON.parse(content);
@@ -44,10 +68,10 @@ function loadAllSessions(): {sessions: ChatSession[]} {
 // 모든 세션 저장
 function saveAllSessions(data: {sessions: ChatSession[]}) {
     ensureSessionsFile();
+    const sessionsFile = getSessionsFile();
     fs.writeFileSync(sessionsFile, JSON.stringify(data, null, 2));
 }
 
-// package.json 기본 정보만 추출 (export 명령어용)
 export function getBasicPackageInfo(): string {
     try {
         const packagePath = join(process.cwd(), "package.json");

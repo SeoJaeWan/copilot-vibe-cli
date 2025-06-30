@@ -175,38 +175,6 @@ copilotCommand
         }
     });
 
-// ============ 컨텍스트 내보내기 ============
-copilotCommand
-    .command("export")
-    .description(t().copilot.export.description)
-    .action(async () => {
-        try {
-            const locale = t();
-            console.log(chalk.blue(locale.copilot.export.exporting));
-
-            const packageInfo = getBasicPackageInfo();
-            const template = locale.copilot.export.template;
-
-            const contextText = `${template.title}
-
-${template.packageInfo} ${packageInfo}
-
-${template.currentDir} ${process.cwd()}
-
-${template.footer}`;
-
-            // 클립보드에 복사
-            const clipboardy = await import("clipboardy");
-            await clipboardy.default.write(contextText);
-
-            console.log(chalk.green(locale.copilot.export.success));
-            console.log(chalk.yellow(locale.copilot.export.instruction));
-            console.log(chalk.gray(locale.copilot.export.note));
-        } catch (e) {
-            console.error(chalk.red((e as Error).message));
-        }
-    });
-
 // ============ 세션 삭제 ============
 copilotCommand
     .command("delete")
