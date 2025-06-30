@@ -85,19 +85,6 @@ export interface LocaleData {
             tags: string;
             usage: string;
         };
-        export: {
-            description: string;
-            exporting: string;
-            success: string;
-            instruction: string;
-            note: string;
-            template: {
-                title: string;
-                packageInfo: string;
-                currentDir: string;
-                footer: string;
-            };
-        };
         delete: {
             description: string;
             argument: string;

@@ -1,32 +1,47 @@
-# 🚀 Linear Vibe CLI
+# 🚀 Copilot Vibe CLI
 
-A powerful CLI tool for efficiently managing Linear issues and maximizing development productivity through GitHub Copilot integration.
+A productivity maximization tool for vibe coding with GitHub Copilot Chat. Automate development workflows through Linear issue management, AI session management, and multi-language support.
 
-[![npm version](https://badge.fury.io/js/linear-vibe-cli.svg)](https://badge.fury.io/js/linear-vibe-cli)
+[![npm version](https://badge.fury.io/js/copilot-vibe-cli.svg)](https://badge.fury.io/js/copilot-vibe-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 ## ✨ Key Features
 
--   📝 **Linear Issue Management**: View and create Linear issues from CLI
--   🤖 **GitHub Copilot Integration**: Copy issue information to clipboard for AI collaboration
+-   🤖 **AI Agent Integration**: Session-based knowledge management perfectly integrated with GitHub Copilot Chat
+-   📝 **Linear Issue Management**: View, create Linear issues and collaborate with AI from CLI
+-   🧠 **Session Management**: Automatically save development conversations and context to accumulate knowledge
+-   🌍 **Complete Multi-language Support**: Real-time Korean/English switching (JSON-based locale system)
+-   ⚙️ **AI Agent-Friendly Design**: All features optimized for AI Agent automation
 -   🔒 **Security-First Design**: Safely store API tokens separately
--   🗂️ **Multi-Workspace Support**: Independent Linear team/project settings per project
--   ⚙️ **Easy Setup**: Interactive workspace initialization support
--   👥 **Team Management**: View Linear teams and project lists
+-   🗂️ **Multi-Workspace**: Independent setting management per project
+-   📋 **Clipboard Integration**: Automatically copy issue information and session context to clipboard
 -   🎨 **Intuitive UI**: Colorful and user-friendly CLI interface
--   📋 **Git Safe**: Only non-sensitive settings can be committed
--   🌍 **Multi-Language Support**: Full Korean/English support with language switching
 
 ## 🔧 Installation
 
 ```bash
-npm install -g linear-vibe-cli
+npm install -g copilot-vibe-cli
 ```
 
 ## 🚀 Quick Start
 
-### 0. Language Setting (Optional)
+### 1. AI Agent Integration Setup
+
+Provide initial setup for AI Agent to automatically utilize all features:
+
+```bash
+vibe init
+```
+
+This command provides AI Agent with:
+
+-   Complete CLI usage and command structure
+-   Automatic session management instructions
+-   Linear integration workflow
+-   Multi-language support guidelines
+
+### 2. Language Setting (Optional)
 
 The CLI is set to English by default. If you prefer Korean:
 
@@ -34,58 +49,94 @@ The CLI is set to English by default. If you prefer Korean:
 vibe lang set ko
 ```
 
-### 1. API Token Setup
+### 3. Linear API Token Setup
 
 Generate a Personal API Key from [Linear Settings](https://linear.app/settings/api) and configure it:
 
 ```bash
-vibe config set-token YOUR_LINEAR_API_TOKEN
+vibe linear config set-token YOUR_LINEAR_API_TOKEN
 ```
 
-### 2. Workspace Initialization (Recommended)
+### 4. Workspace Initialization
 
 Run interactive workspace initialization in your project directory:
 
 ```bash
-vibe config init
+vibe linear config init
 ```
 
-This command will:
+### 5. Start AI Session Management
 
-1. Display available Linear teams
-2. Show projects for the selected team
-3. Create `.vibe-config.json` file in current directory (excluding token)
-
-### 3. Start Managing Issues
+Create your first development session and start collaborating with AI Agent:
 
 ```bash
-# View issue list (by creation date, max 10)
-vibe issue list
+# Create new session
+vibe copilot save -n "project-name-feature" -t "development,feature" -c "Start new feature development" --project-type "Web Application" --tech-stack "React,TypeScript"
 
-# View more issues
-vibe issue list --limit 20
+# Work with issues integration
+vibe linear issue list
+vibe linear copilot <issue-ID>  # Copy issue information to clipboard
 
-# Create new issue
-vibe issue create --title "New Feature" --description "Feature description"
-
-# Share issue information with Copilot
-vibe copilot <issueId>
+# Load session (context copied to clipboard)
+vibe copilot load "session-name"
 ```
 
-## 🔒 Security Design
+## 🤖 AI Agent Integration Workflow
 
-This CLI is designed with security as the top priority:
+Vibe CLI is designed to allow AI Agent to automatically manage development workflows:
 
-### API Token Security
+### 1. Automatic Session Management
 
--   **Global Storage**: API tokens are stored only in `~/.vibe/config.json`
--   **Workspace Separation**: Project-specific settings (`.vibe-config.json`) don't store tokens
--   **Home Directory Protection**: Safely stored in hidden folders
+```bash
+# AI Agent automatically executes for every important conversation
+vibe copilot edit "session-name" --append-conversation "Q: [question]\nA: [answer]\nResult: [result]"
+```
+
+### 2. Linear Issue Integration
+
+```bash
+# When starting issue work
+vibe linear copilot <issue-ID>  # Automatically output issue information
+
+# Create new issue
+vibe linear issue create --title "feature-name" --description "detailed description"
+```
+
+## 🔒 Security and Configuration Management
+
+### Configuration Management
+
+The CLI uses a unified configuration system with the `.copilot` folder:
+
+-   **Global Storage**: API tokens remain secure in `~/.vibe/config.json`
+-   **Project Settings**: All project-specific configurations in `.copilot/config.json`
+-   **Recursive Search**: Automatically searches for `.copilot` folder from current directory up to parent directories
+-   **Team Collaboration**: Safe to share `.copilot` folder contents with team members
+
+### Migration from Legacy Configuration
+
+If you have existing `.vibe-config.json` files, you can migrate to the new unified system:
+
+```bash
+# 1. Create .copilot directory
+mkdir .copilot
+
+# 2. Move your existing configuration
+mv .vibe-config.json .copilot/config.json
+
+# 3. Verify the configuration works
+vibe linear config get
+
+# 4. Optional: Initialize options if needed
+echo '{"language": "en"}' > .copilot/options.json
+```
 
 ### Git Safety
 
--   ✅ `.vibe-config.json` is **safe to commit to git**
--   ✅ Can share project settings with team members
+-   ✅ `.copilot/config.json` is **safe to commit to git**
+-   ✅ `.copilot/options.json` is **safe to commit to git**
+-   ✅ `.copilot/sessions.json` is **safe to commit to git** (knowledge sharing)
+-   ✅ Can share project settings and sessions with team members
 -   ✅ Each person only needs to set up their API token individually
 
 ### Configuration File Structure
@@ -98,7 +149,7 @@ This CLI is designed with security as the top priority:
 }
 ```
 
-**Workspace Config** (`.vibe-config.json`):
+**Unified Project Config** (`.copilot/config.json`):
 
 ```json
 {
@@ -108,38 +159,68 @@ This CLI is designed with security as the top priority:
 }
 ```
 
-**Language Options** (`.copilot/options.json`):
+**Language & Options Config** (`.copilot/options.json`):
 
 ```json
 {
-    "language": "en"
+    "language": "en",
+    "autoSave": true
 }
 ```
 
-## 🏢 Multi-Workspace Support
+**AI Session Data** (`.copilot/sessions.json`):
 
-You can set different Linear teams/projects for each project:
-
-```bash
-# Project A
-cd /path/to/project-a
-vibe config init --name "Frontend" --team <team-id> --project <project-id>
-
-# Project B
-cd /path/to/project-b
-vibe config init --name "Backend" --team <team-id> --project <project-id>
-
-# Manage issues independently in each project
-vibe issue list  # Shows only issues for that project
+```json
+{
+    "sessions": [
+        {
+            "name": "feature-implementation",
+            "timestamp": "2025-06-30T05:56:43.581Z",
+            "tags": ["feature", "authentication"],
+            "projectContext": {
+                "projectType": "Web Application",
+                "techStack": ["React", "Node.js"],
+                "patterns": ["JWT authentication", "Middleware pattern"]
+            },
+            "conversation": "User authentication implementation process..."
+        }
+    ]
+}
 ```
 
-Settings are automatically found and applied from parent directories.
+## 🏢 Multi-Project Support
+
+You can manage independent settings and sessions for each project:
+
+```bash
+# Frontend project
+cd ~/projects/frontend
+vibe linear config init --name "Frontend" --team <team-id> --project <project-id>
+vibe copilot save -n "frontend-setup" -t "frontend,react"
+
+# Backend project
+cd ~/projects/backend
+vibe linear config init --name "Backend" --team <team-id> --project <project-id>
+vibe copilot save -n "backend-api" -t "backend,nodejs"
+
+# Manage independently in each project
+vibe linear issue list    # Shows only issues for that project
+vibe copilot list         # Shows only sessions for that project
+```
 
 ## 📚 Command Reference
 
+### AI Agent Initialization (`vibe init`)
+
+Provides complete CLI usage and automation instructions to AI Agent.
+
+```bash
+vibe init  # Output AI Agent integration instructions and copy to clipboard
+```
+
 ### Language Settings (`vibe lang`)
 
-You can change the CLI language. Default is English, with full Korean support.
+Change CLI language in real-time.
 
 ```bash
 # Check current language setting
@@ -157,168 +238,208 @@ vibe lang set en
 -   `en`: English (default)
 -   `ko`: Korean
 
-Language settings are stored in `.copilot/options.json` file, and all commands and messages will be displayed in the selected language.
+### Copilot Session Management (`vibe copilot`)
 
-### Configuration Management (`vibe config`)
+Systematically manage all conversations and context with AI Agent.
 
 ```bash
+# Create new session (AI Agent exclusive)
+vibe copilot save -n "session-name" -t "tag1,tag2" -c "initial conversation" \
+  --project-type "project type" --tech-stack "tech1,tech2"
+
+# Load session (copy context to clipboard)
+vibe copilot load [session-name]
+
+# Check session list
+vibe copilot list
+vibe copilot list --tag "tag-name"  # Filter by tag
+
+# Edit session (AI Agent automatically executes)
+vibe copilot edit "session-name" --append-conversation "new conversation content"
+vibe copilot edit "session-name" --add-tags "new-tag1,new-tag2"
+vibe copilot edit "session-name" --add-patterns "pattern1;pattern2"
+
+# Check session details
+vibe copilot show "session-name"
+
+# Delete session
+vibe copilot delete "session-name"
+
+# Update project context
+vibe copilot update-context "session-name" --project-type "new type" --add-tech "new-tech1,new-tech2"
+```
+
+### Linear Integration Management (`vibe linear`)
+
+Handle Linear issue management and AI collaboration in one place.
+
+```bash
+# Linear configuration
+vibe linear config set-token <token>      # Set API token
+vibe linear config teams                  # Available teams list
+vibe linear config set-team <team-ID>     # Set team
+vibe linear config projects               # Current team's project list
+vibe linear config set-project <project-ID>  # Set project
+vibe linear config get                    # Check current settings
+
 # Workspace initialization (interactive)
-vibe config init
+vibe linear config init
 
-# Initialize with specific options
-vibe config init --name "ProjectName" --team <teamId> --project <projectId>
+# Issue management
+vibe linear issue list                    # Issue list (default 10)
+vibe linear issue list --limit 20         # Up to 20
+vibe linear issue create --title "title" --description "description"
 
-# Manual configuration
-vibe config set-token <token>      # Set API token
-vibe config set-team <teamId>      # Set team ID
-vibe config set-project <projectId> # Set project ID
-
-# View settings
-vibe config get                    # Check current settings
-vibe config teams                  # Available teams list
-vibe config projects               # Projects list for current team
-```
-
-### Issue Management (`vibe issue`)
-
-```bash
-# View issue list
-vibe issue list                    # Default 10 issues (by creation date)
-vibe issue list --limit 20         # Up to 20 issues
-
-# Create issue
-vibe issue create --title "Title" --description "Description"
-```
-
-### Copilot Integration (`vibe copilot`)
-
-```bash
-# Copy issue information to clipboard
-vibe copilot <issueId>
-
-# Paste the copied content into GitHub Copilot Chat for AI collaboration
+# Copilot integration
+vibe linear copilot <issue-ID>            # Copy issue information to clipboard for AI sharing
 ```
 
 ## 🎯 Usage Examples
 
-### Typical Workflow
+### AI Agent Integration Development Workflow
 
 ```bash
-# 1. Project setup
-cd my-project
-vibe config init
+# 1. AI Agent initial setup
+vibe init  # Provide complete usage to AI
 
-# 2. Check current issues
-vibe issue list
+# 2. Project language setting
+vibe lang set ko  # When using Korean
 
-# 3. Create new feature issue
-vibe issue create \
-  --title "Implement User Authentication" \
-  --description "Implement JWT-based authentication system"
+# 3. Linear configuration
+vibe linear config init  # Interactive setup
 
-# 4. Consult with AI about specific issue
-vibe copilot 89ad71e1-30ac-4839-a846-502998b5da7d
+# 4. Start new feature development session
+vibe copilot save -n "user-auth-implementation" -t "feature,authentication" \
+  -c "Start implementing JWT-based user authentication system" \
+  --project-type "Web Application" --tech-stack "React,Node.js,JWT"
+
+# 5. Check related issues and share with AI
+vibe linear issue list
+vibe linear copilot ABC-123  # Copy issue information to clipboard
+
+# 6. Automatically save development conversations (executed by AI Agent)
+vibe copilot edit "user-auth-implementation" \
+  --append-conversation "Q: How to verify JWT tokens?\nA: Implement middleware\nResult: Authentication logic completed"
+
+# 7. Apply to other projects
+vibe copilot load "user-auth-implementation"  # Apply previous experience to new project
 ```
 
 ### Actual Output Examples
 
-**Issue List:**
+**AI Agent Initialization:**
 
 ```bash
-$ vibe issue list
+$ vibe init
 
-📋 Linear Issues (max 10):
+🤖 Vibe CLI AI Agent Integration Instructions
+=============================================================
 
-1. Improve Roulette Item Edit Feature
-   ID: 89ad71e1-30ac-4839-a846-502998b5da7d
-   Identifier: SEO-14
-   Status: Backlog
-   Created: Jun 29, 2025
+Provides Vibe CLI tool usage and automatic session management instructions to AI Agent
+  Project: copilot-vibe-cli v1.0.0
+  Default session name: copilot-vibe-cli-development
+  Working directory: /current/project/path
+  Language: en
 
-2. Implement Roulette Result Modal UI
-   ID: 89b83591-01bc-4416-874e-1fba61e4c642
-   Identifier: SEO-12
-   Status: Backlog
-   Created: Jun 29, 2025
+🎯 Purpose:
+Automatically save all interactions during development to accumulate knowledge,
+and maximize development productivity through Linear integration
 
-💡 Tip: Use 'vibe copilot <issueId>' to share issue information with AI
+✅ Vibe CLI AI Agent integration instructions copied to clipboard!
+💡 Now paste into Copilot Chat to start integrated AI development environment.
 ```
 
-**Issue Creation:**
+**Session List:**
 
 ```bash
-$ vibe issue create --title "CLI Test Issue" --description "This is a test issue created from CLI"
+$ vibe copilot list
 
-✅ Issue created successfully.
-📌 ID: 35a94593-af63-4a2d-b2d3-394fae752659
-🔖 Identifier: SEO-8
-📝 Title: CLI Test Issue
+🤖 Copilot Chat Session List:
+
+1. user-auth-implementation
+   Date: Jun 30, 2025
+   Project: Web Application
+   Tags: feature, authentication
+
+2. database-optimization
+   Date: Jun 29, 2025
+   Project: Backend API
+   Tags: optimization, database
+
+💡 Usage: vibe copilot load <session-name>
 ```
 
-### Multi-Project Management
+**Linear Issue Integration:**
 
 ```bash
-# Frontend project
-cd ~/projects/frontend
-vibe config init
-vibe issue list
+$ vibe linear copilot ABC-123
 
-# Backend project
-cd ~/projects/backend
-vibe config init
-vibe issue list  # Shows different project's issues
+📋 Linear issue information copied to clipboard!
+
+🔗 Issue: ABC-123 - Implement User Authentication System
+📝 Status: In Progress
+👤 Assignee: Developer Name
+📅 Created: Jun 30, 2025
+
+💡 Now paste into Copilot Chat to consult with AI about the issue.
 ```
 
 ## ⚠️ Important Notes
 
-### Required Settings
+### Required Settings for AI Agent Automation
 
 -   **API Token**: Linear API key required
 -   **Team ID**: Linear team UUID needed
 -   **Project ID**: Linear project UUID needed
+-   **Language Setting**: Managed in `.copilot/options.json`
 
-### ID Format
+### ID Format and Automation
 
 -   Team ID and Project ID must be in **UUID format**
--   Use `vibe config teams` and `vibe config projects` commands to get correct UUIDs
+-   Use `vibe linear config teams` and `vibe linear config projects` commands to get correct UUIDs
+-   AI Agent automatically handles session management and issue integration
 
 ### Workspace Priority
 
-1. `.vibe-config.json` in current directory
-2. `.vibe-config.json` in parent directories (recursive search)
-3. Global config `~/.vibe/config.json`
+1. `.copilot/config.json` in current directory or parent directories (recursive search)
+2. Global config `~/.vibe/config.json`
+3. Language settings `.copilot/options.json`
+4. Session data `.copilot/sessions.json`
+
+**Note**: The CLI automatically searches for the `.copilot` folder starting from the current directory and moving up through parent directories until found.
+
+### AI Agent Integration Features
+
+-   **Automatic Session Saving**: AI Agent automatically updates sessions for every important conversation
+-   **Context Sharing**: Instant information sharing through clipboard
+-   **Knowledge Accumulation**: All development experiences saved as reusable sessions
+-   **Multi-language Support**: AI Agent performs all tasks in selected language
 
 ### Linear API Features
 
 -   Issues are displayed **sorted by creation date**
 -   Uses GraphQL for efficient data querying
 -   Accurate issue management through team and project filtering
+-   AI Agent automatically analyzes issue information to provide context
 
-## 📋 Configuration File Locations
+## 🤖 AI Agent Usage Guide
 
-### Global Config
+### Recommended AI Agent Workflow
 
--   **Location**: `~/.vibe/config.json`
--   **Content**: API token only
--   **Purpose**: User-specific authentication
+1. **Project Start**: `vibe init` → Provide complete instructions to AI
+2. **Automatic Session Creation**: AI automatically creates sessions by task
+3. **Issue Integration**: `vibe linear copilot <ID>` → AI analyzes issues
+4. **Conversation Accumulation**: All Q&A automatically saved to sessions
+5. **Knowledge Reuse**: Automatically load previous sessions for similar tasks
 
-### Workspace Config
+### AI Agent Auto-Execute Commands
 
--   **Location**: `.vibe-config.json` in project root
--   **Content**: Team ID, project ID, workspace name
--   **Purpose**: Project-specific Linear settings
-
-### Language & Options Config
-
--   **Location**: `.copilot/options.json`
--   **Content**: Language setting (`language: "en" | "ko"`)
--   **Purpose**: CLI language setting and other options
--   **Example**:
-
-```json
-{
-    "language": "ko"
-}
+```bash
+# Commands automatically executed by AI
+vibe copilot save     # Automatically create new sessions
+vibe copilot edit     # Automatically add conversation content
+vibe linear copilot   # Automatically analyze issue information
+vibe copilot load     # Automatically load related sessions
 ```
 
 ## 🤝 Contributing
@@ -337,21 +458,37 @@ This project is distributed under the MIT License.
 
 ### Common Errors
 
-**GraphQL Error:**
+**Linear GraphQL Error:**
 
 ```
-❌ Team ID and Project ID are not set. Please set them using `vibe config init` command.
+❌ Team ID and Project ID are not set. Please set them using `vibe linear config init` command.
 ```
 
-→ Solution: Set workspace settings with `vibe config init` command
+→ Solution: Set workspace settings with `vibe linear config init` command
 
-**Token Error:**
+**API Token Error:**
 
 ```
 ❌ Linear API token is not set.
 ```
 
-→ Solution: Set token with `vibe config set-token <token>` command
+→ Solution: Set token with `vibe linear config set-token <token>` command
+
+**Session File Error:**
+
+```
+❌ Session file not found.
+```
+
+→ Solution: Check if `.copilot` folder exists, create first session
+
+**Language Setting Error:**
+
+```
+❌ Unsupported language.
+```
+
+→ Solution: Use `vibe lang set ko` or `vibe lang set en`
 
 **No Issues Found:**
 
@@ -361,10 +498,40 @@ This project is distributed under the MIT License.
 
 → Check if Team ID and Project ID are correct
 
-## 📞 Support
+### AI Agent Related Issues
 
--   🐛 Issues: [GitHub Issues](https://github.com/SeoJaeWan/linear-vibe-cli/issues)
+**When AI Agent doesn't automatically save sessions:**
+
+1. Provide instructions to AI again with `vibe init`
+2. Explicitly ask AI to "update session"
+3. Manually execute `vibe copilot edit` command
+
+## 📞 Support and Contact
+
+-   🐛 Report Issues: [GitHub Issues](https://github.com/SeoJaeWan/vibe-dev-cli/issues)
+-   💬 Feature Requests: [GitHub Discussions](https://github.com/SeoJaeWan/vibe-dev-cli/discussions)
+-   📧 Direct Contact: See project repository contact information
+
+## 🚀 Roadmap
+
+### v1.1.0 Plans
+
+-   [ ] Jira integration support
+-   [ ] Slack/Discord notification integration
+-   [ ] Advanced AI Agent automation
+-   [ ] Additional language support (Japanese, Chinese)
+
+### v1.2.0 Plans
+
+-   [ ] Web dashboard interface
+-   [ ] Enhanced team collaboration features
+-   [ ] Session analysis and insights
+-   [ ] Plugin system
 
 ---
 
 ⭐ If this project is useful, please give it a star!
+
+🤖 **Experience smarter development with AI Agent!**
+
+🤖 **AI Agent와 함께 더 스마트한 개발을 경험해보세요!**

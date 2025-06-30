@@ -89,19 +89,6 @@
             "tags": "Tags:",
             "usage": "💡 Usage: vibe copilot load <session-name>"
         },
-        "export": {
-            "description": "Copy current project's basic information to clipboard",
-            "exporting": "📤 Generating basic project information...",
-            "success": "✅ Basic project information copied to clipboard!",
-            "instruction": "💡 Now paste into Copilot Chat to ask about the project.",
-            "note": "🤖 AI Agent will directly analyze and provide necessary details.",
-            "template": {
-                "title": "Current project basic information:",
-                "packageInfo": "Package info:",
-                "currentDir": "Current directory:",
-                "footer": "Please help with this project. AI Agent will directly analyze and provide additional information."
-            }
-        },
         "delete": {
             "description": "Delete saved session",
             "argument": "Session name to delete",
@@ -228,11 +215,7 @@
                 "success": "✅ Workspace successfully initialized!",
                 "configFile": "📁 Config file: {path}/.vibe-config.json",
                 "nextSteps": "🎉 You can now use the following commands:",
-                "commands": [
-                    "vibe linear issue list",
-                    "vibe linear issue create --title 'title' --description 'description'",
-                    "vibe copilot export (share project context)"
-                ]
+                "commands": ["vibe linear issue list", "vibe linear issue create --title 'title' --description 'description'"]
             }
         },
         "issue": {
