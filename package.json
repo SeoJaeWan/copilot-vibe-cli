@@ -1,6 +1,6 @@
 {
     "name": "copilot-vibe-cli",
-    "version": "1.0.0",
+    "version": "1.0.1`",
     "type": "module",
     "description": "🚀 GitHub Copilot Chat과 vibe 코딩을 위한 생산성 극대화 도구. 코드 컨텍스트 관리, AI 협업 최적화, 개발 워크플로우 자동화 기능 제공",
     "main": "dist/index.js",
