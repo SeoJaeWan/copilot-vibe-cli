@@ -1,262 +1,327 @@
 # 🚀 Linear Vibe CLI
 
-Linear 이슈를 CLI에서 효율적으로 관리하고 GitHub Copilot과 연동하여 개발 생산성을 극대화하는 도구입니다.
+A powerful CLI tool for efficiently managing Linear issues and maximizing development productivity through GitHub Copilot integration.
 
 [![npm version](https://badge.fury.io/js/linear-vibe-cli.svg)](https://badge.fury.io/js/linear-vibe-cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## ✨ 주요 기능
+## ✨ Key Features
 
-- 📝 **Linear 이슈 관리**: CLI에서 Linear 이슈 목록 조회 및 생성
-- 🤖 **GitHub Copilot 연동**: 이슈 정보를 클립보드에 복사하여 AI와 협업
-- 🔒 **보안 우선 설계**: API 토큰을 안전하게 분리 저장
-- 🗂️ **멀티 워크스페이스**: 프로젝트별로 독립적인 Linear 팀/프로젝트 설정
-- ⚙️ **간편한 설정**: 대화형 워크스페이스 초기화 지원
-- 👥 **팀 관리**: Linear 팀 및 프로젝트 목록 조회
-- 🎨 **직관적인 UI**: 컬러풀하고 사용자 친화적인 CLI 인터페이스
-- 📋 **Git 안전**: 민감하지 않은 설정만 커밋 가능
+-   📝 **Linear Issue Management**: View and create Linear issues from CLI
+-   🤖 **GitHub Copilot Integration**: Copy issue information to clipboard for AI collaboration
+-   🔒 **Security-First Design**: Safely store API tokens separately
+-   🗂️ **Multi-Workspace Support**: Independent Linear team/project settings per project
+-   ⚙️ **Easy Setup**: Interactive workspace initialization support
+-   👥 **Team Management**: View Linear teams and project lists
+-   🎨 **Intuitive UI**: Colorful and user-friendly CLI interface
+-   📋 **Git Safe**: Only non-sensitive settings can be committed
+-   🌍 **Multi-Language Support**: Full Korean/English support with language switching
 
-## 🔧 설치
+## 🔧 Installation
 
 ```bash
 npm install -g linear-vibe-cli
 ```
 
-## 🚀 빠른 시작
+## 🚀 Quick Start
 
-### 1. API 토큰 설정
+### 0. Language Setting (Optional)
 
-[Linear 설정 페이지](https://linear.app/settings/api)에서 Personal API Key를 생성하고 설정합니다:
+The CLI is set to English by default. If you prefer Korean:
+
+```bash
+vibe lang set ko
+```
+
+### 1. API Token Setup
+
+Generate a Personal API Key from [Linear Settings](https://linear.app/settings/api) and configure it:
 
 ```bash
 vibe config set-token YOUR_LINEAR_API_TOKEN
 ```
 
-### 2. 워크스페이스 초기화 (권장)
+### 2. Workspace Initialization (Recommended)
 
-프로젝트 디렉토리에서 대화형 워크스페이스 초기화를 실행합니다:
+Run interactive workspace initialization in your project directory:
 
 ```bash
 vibe config init
 ```
 
-이 명령어는 다음을 수행합니다:
-1. 사용 가능한 Linear 팀 목록 표시
-2. 선택한 팀의 프로젝트 목록 표시
-3. 현재 디렉토리에 `.vibe-config.json` 파일 생성 (토큰 제외)
+This command will:
 
-### 3. 이슈 관리 시작
+1. Display available Linear teams
+2. Show projects for the selected team
+3. Create `.vibe-config.json` file in current directory (excluding token)
+
+### 3. Start Managing Issues
 
 ```bash
-# 이슈 목록 조회 (생성일 순, 최대 10개)
+# View issue list (by creation date, max 10)
 vibe issue list
 
-# 더 많은 이슈 조회
+# View more issues
 vibe issue list --limit 20
 
-# 새 이슈 생성
-vibe issue create --title "새로운 기능" --description "기능 설명"
+# Create new issue
+vibe issue create --title "New Feature" --description "Feature description"
 
-# 이슈 정보를 Copilot과 공유
+# Share issue information with Copilot
 vibe copilot <issueId>
 ```
 
-## 🔒 보안 설계
+## 🔒 Security Design
 
-이 CLI는 보안을 최우선으로 설계되었습니다:
+This CLI is designed with security as the top priority:
 
-### API 토큰 보안
-- **글로벌 저장**: API 토큰은 `~/.vibe/config.json`에만 저장
-- **워크스페이스 분리**: 프로젝트별 설정(`.vibe-config.json`)에는 토큰 저장 안 함
-- **홈 디렉토리 보호**: 숨겨진 폴더에 안전하게 보관
+### API Token Security
 
-### Git 안전성
-- ✅ `.vibe-config.json`은 **git에 안전하게 커밋 가능**
-- ✅ 팀원들과 프로젝트 설정을 공유할 수 있음
-- ✅ 각자 개별적으로 API 토큰만 설정하면 됨
+-   **Global Storage**: API tokens are stored only in `~/.vibe/config.json`
+-   **Workspace Separation**: Project-specific settings (`.vibe-config.json`) don't store tokens
+-   **Home Directory Protection**: Safely stored in hidden folders
 
-### 설정 파일 구조
+### Git Safety
 
-**글로벌 설정** (`~/.vibe/config.json`):
+-   ✅ `.vibe-config.json` is **safe to commit to git**
+-   ✅ Can share project settings with team members
+-   ✅ Each person only needs to set up their API token individually
+
+### Configuration File Structure
+
+**Global Config** (`~/.vibe/config.json`):
+
 ```json
 {
-  "token": "your_linear_api_token"
+    "token": "your_linear_api_token"
 }
 ```
 
-**워크스페이스 설정** (`.vibe-config.json`):
+**Workspace Config** (`.vibe-config.json`):
+
 ```json
 {
-  "workspaceName": "my-project",
-  "teamId": "team-uuid-here",
-  "projectId": "project-uuid-here"
+    "workspaceName": "my-project",
+    "teamId": "team-uuid-here",
+    "projectId": "project-uuid-here"
 }
 ```
 
-## 🏢 멀티 워크스페이스 지원
+**Language Options** (`.copilot/options.json`):
 
-각 프로젝트마다 다른 Linear 팀/프로젝트를 설정할 수 있습니다:
+```json
+{
+    "language": "en"
+}
+```
+
+## 🏢 Multi-Workspace Support
+
+You can set different Linear teams/projects for each project:
 
 ```bash
-# 프로젝트 A
+# Project A
 cd /path/to/project-a
 vibe config init --name "Frontend" --team <team-id> --project <project-id>
 
-# 프로젝트 B  
+# Project B
 cd /path/to/project-b
 vibe config init --name "Backend" --team <team-id> --project <project-id>
 
-# 각 프로젝트에서 독립적으로 이슈 관리
-vibe issue list  # 해당 프로젝트의 이슈만 표시
+# Manage issues independently in each project
+vibe issue list  # Shows only issues for that project
 ```
 
-설정은 상위 디렉토리에서 자동으로 찾아 적용됩니다.
+Settings are automatically found and applied from parent directories.
 
-## 📚 명령어 레퍼런스
+## 📚 Command Reference
 
-### 설정 관리 (`vibe config`)
+### Language Settings (`vibe lang`)
+
+You can change the CLI language. Default is English, with full Korean support.
 
 ```bash
-# 워크스페이스 초기화 (대화형)
+# Check current language setting
+vibe lang get
+
+# Change to Korean
+vibe lang set ko
+
+# Change to English
+vibe lang set en
+```
+
+**Supported Languages:**
+
+-   `en`: English (default)
+-   `ko`: Korean
+
+Language settings are stored in `.copilot/options.json` file, and all commands and messages will be displayed in the selected language.
+
+### Configuration Management (`vibe config`)
+
+```bash
+# Workspace initialization (interactive)
 vibe config init
 
-# 특정 옵션으로 초기화
-vibe config init --name "프로젝트명" --team <팀ID> --project <프로젝트ID>
+# Initialize with specific options
+vibe config init --name "ProjectName" --team <teamId> --project <projectId>
 
-# 수동 설정
-vibe config set-token <token>      # API 토큰 설정
-vibe config set-team <teamId>      # 팀 ID 설정  
-vibe config set-project <projectId> # 프로젝트 ID 설정
+# Manual configuration
+vibe config set-token <token>      # Set API token
+vibe config set-team <teamId>      # Set team ID
+vibe config set-project <projectId> # Set project ID
 
-# 조회
-vibe config get                    # 현재 설정 확인
-vibe config teams                  # 사용 가능한 팀 목록
-vibe config projects               # 현재 팀의 프로젝트 목록
+# View settings
+vibe config get                    # Check current settings
+vibe config teams                  # Available teams list
+vibe config projects               # Projects list for current team
 ```
 
-### 이슈 관리 (`vibe issue`)
+### Issue Management (`vibe issue`)
 
 ```bash
-# 이슈 목록 조회
-vibe issue list                    # 기본 10개 (생성일 순)
-vibe issue list --limit 20         # 최대 20개
+# View issue list
+vibe issue list                    # Default 10 issues (by creation date)
+vibe issue list --limit 20         # Up to 20 issues
 
-# 이슈 생성
-vibe issue create --title "제목" --description "설명"
+# Create issue
+vibe issue create --title "Title" --description "Description"
 ```
 
-### Copilot 연동 (`vibe copilot`)
+### Copilot Integration (`vibe copilot`)
 
 ```bash
-# 이슈 정보를 클립보드에 복사
+# Copy issue information to clipboard
 vibe copilot <issueId>
 
-# 복사된 내용을 GitHub Copilot Chat에 붙여넣기하여 AI와 협업
+# Paste the copied content into GitHub Copilot Chat for AI collaboration
 ```
 
-## 🎯 사용 예시
+## 🎯 Usage Examples
 
-### 일반적인 워크플로우
+### Typical Workflow
 
 ```bash
-# 1. 프로젝트 설정
+# 1. Project setup
 cd my-project
 vibe config init
 
-# 2. 현재 이슈들 확인
+# 2. Check current issues
 vibe issue list
 
-# 3. 새 기능 이슈 생성
+# 3. Create new feature issue
 vibe issue create \
-  --title "사용자 인증 구현" \
-  --description "JWT 기반 인증 시스템 구현"
+  --title "Implement User Authentication" \
+  --description "Implement JWT-based authentication system"
 
-# 4. 특정 이슈에 대해 AI와 상담
+# 4. Consult with AI about specific issue
 vibe copilot 89ad71e1-30ac-4839-a846-502998b5da7d
 ```
 
-### 실제 출력 예시
+### Actual Output Examples
 
-**이슈 목록 조회:**
+**Issue List:**
+
 ```bash
 $ vibe issue list
 
-📋 Linear 이슈 목록 (최대 10개):
+📋 Linear Issues (max 10):
 
-1. 룰렛 항목 편집 기능 개선
+1. Improve Roulette Item Edit Feature
    ID: 89ad71e1-30ac-4839-a846-502998b5da7d
    Identifier: SEO-14
-   상태: Backlog
-   생성일: 2025. 6. 29.
+   Status: Backlog
+   Created: Jun 29, 2025
 
-2. 룰렛 결과 모달 UI 구현
+2. Implement Roulette Result Modal UI
    ID: 89b83591-01bc-4416-874e-1fba61e4c642
    Identifier: SEO-12
-   상태: Backlog
-   생성일: 2025. 6. 29.
+   Status: Backlog
+   Created: Jun 29, 2025
 
-💡 팁: 'vibe copilot <issueId>' 명령어로 이슈 정보를 AI와 공유할 수 있습니다
+💡 Tip: Use 'vibe copilot <issueId>' to share issue information with AI
 ```
 
-**이슈 생성:**
-```bash
-$ vibe issue create --title "CLI 테스트 이슈" --description "이 이슈는 CLI에서 생성된 테스트 이슈입니다"
+**Issue Creation:**
 
-✅ 이슈가 성공적으로 생성되었습니다.
+```bash
+$ vibe issue create --title "CLI Test Issue" --description "This is a test issue created from CLI"
+
+✅ Issue created successfully.
 📌 ID: 35a94593-af63-4a2d-b2d3-394fae752659
 🔖 Identifier: SEO-8
-📝 Title: CLI 테스트 이슈
+📝 Title: CLI Test Issue
 ```
 
-### 다중 프로젝트 관리
+### Multi-Project Management
 
 ```bash
-# 프론트엔드 프로젝트
+# Frontend project
 cd ~/projects/frontend
 vibe config init
 vibe issue list
 
-# 백엔드 프로젝트  
+# Backend project
 cd ~/projects/backend
 vibe config init
-vibe issue list  # 다른 프로젝트의 이슈 표시
+vibe issue list  # Shows different project's issues
 ```
 
-## ⚠️ 중요 사항
+## ⚠️ Important Notes
 
-### 필수 설정
-- **API 토큰**: Linear API 키 필수
-- **팀 ID**: Linear 팀 UUID 필요
-- **프로젝트 ID**: Linear 프로젝트 UUID 필요
+### Required Settings
 
-### ID 형식
-- 팀 ID와 프로젝트 ID는 **UUID 형식**이어야 합니다
-- `vibe config teams` 및 `vibe config projects` 명령어로 정확한 UUID 확인
+-   **API Token**: Linear API key required
+-   **Team ID**: Linear team UUID needed
+-   **Project ID**: Linear project UUID needed
 
-### 워크스페이스 우선순위
-1. 현재 디렉토리의 `.vibe-config.json`
-2. 상위 디렉토리의 `.vibe-config.json` (재귀 검색)
-3. 글로벌 설정 `~/.vibe/config.json`
+### ID Format
 
-### Linear API 특징
-- 이슈는 **생성일 순**으로 정렬되어 표시됩니다
-- GraphQL을 사용하여 효율적인 데이터 조회
-- 팀과 프로젝트 필터링을 통한 정확한 이슈 관리
+-   Team ID and Project ID must be in **UUID format**
+-   Use `vibe config teams` and `vibe config projects` commands to get correct UUIDs
 
-## 📋 설정 파일 위치
+### Workspace Priority
 
-### 글로벌 설정
-- **위치**: `~/.vibe/config.json`
-- **내용**: API 토큰만 저장
-- **용도**: 사용자별 인증 정보
+1. `.vibe-config.json` in current directory
+2. `.vibe-config.json` in parent directories (recursive search)
+3. Global config `~/.vibe/config.json`
 
-### 워크스페이스 설정
-- **위치**: 프로젝트 루트의 `.vibe-config.json`
-- **내용**: 팀 ID, 프로젝트 ID, 워크스페이스 이름
-- **용도**: 프로젝트별 Linear 설정
+### Linear API Features
 
-## 🤝 기여하기
+-   Issues are displayed **sorted by creation date**
+-   Uses GraphQL for efficient data querying
+-   Accurate issue management through team and project filtering
+
+## 📋 Configuration File Locations
+
+### Global Config
+
+-   **Location**: `~/.vibe/config.json`
+-   **Content**: API token only
+-   **Purpose**: User-specific authentication
+
+### Workspace Config
+
+-   **Location**: `.vibe-config.json` in project root
+-   **Content**: Team ID, project ID, workspace name
+-   **Purpose**: Project-specific Linear settings
+
+### Language & Options Config
+
+-   **Location**: `.copilot/options.json`
+-   **Content**: Language setting (`language: "en" | "ko"`)
+-   **Purpose**: CLI language setting and other options
+-   **Example**:
+
+```json
+{
+    "language": "ko"
+}
+```
+
+## 🤝 Contributing
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -264,36 +329,42 @@ vibe issue list  # 다른 프로젝트의 이슈 표시
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 라이선스
+## 📄 License
 
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+This project is distributed under the MIT License.
 
-## 🐛 문제 해결
+## 🐛 Troubleshooting
 
-### 자주 발생하는 오류
+### Common Errors
 
-**GraphQL 오류:**
+**GraphQL Error:**
+
 ```
-❌ 팀 ID와 프로젝트 ID가 설정되지 않았습니다. `vibe config init` 명령어로 설정해주세요.
+❌ Team ID and Project ID are not set. Please set them using `vibe config init` command.
 ```
-→ 해결: `vibe config init` 명령어로 워크스페이스 설정
 
-**토큰 오류:**
-```
-❌ Linear API 토큰이 설정되어 있지 않습니다.
-```
-→ 해결: `vibe config set-token <token>` 명령어로 토큰 설정
+→ Solution: Set workspace settings with `vibe config init` command
 
-**이슈가 없을 때:**
-```
-📭 조건에 맞는 이슈가 없습니다.
-```
-→ 팀 ID와 프로젝트 ID가 올바른지 확인
+**Token Error:**
 
-## 📞 지원
+```
+❌ Linear API token is not set.
+```
 
-- 🐛 이슈: [GitHub Issues](https://github.com/SeoJaeWan/linear-vibe-cli/issues)
+→ Solution: Set token with `vibe config set-token <token>` command
+
+**No Issues Found:**
+
+```
+📭 No issues match the criteria.
+```
+
+→ Check if Team ID and Project ID are correct
+
+## 📞 Support
+
+-   🐛 Issues: [GitHub Issues](https://github.com/SeoJaeWan/linear-vibe-cli/issues)
 
 ---
 
-⭐ 이 프로젝트가 유용하다면 스타를 눌러주세요!
+⭐ If this project is useful, please give it a star!

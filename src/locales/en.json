@@ -1,0 +1,278 @@
+{
+    "program": {
+        "name": "vibe",
+        "description": "🚀 Vibe Dev CLI - GitHub Copilot Chat integration for maximum coding productivity",
+        "version": "3.0.0"
+    },
+    "init": {
+        "title": "🤖 Vibe CLI AI Agent Integrated Learning Instructions",
+        "template": "🚀 Vibe CLI AI Agent Integrated Learning Instructions\n\n🎯 Purpose:\nAutomatically save all interactions during development to accumulate knowledge and maximize development productivity through integration with Linear/Jira and other tools\n\n═══════════════════════════════════════════════════════════════\n\n📝 Auto-save Rules:\n1. Whenever user asks important technical questions\n2. Whenever providing code modifications or new feature implementations\n3. Whenever suggesting problem solutions\n4. Whenever making architectural or design decisions\n5. Whenever working on Linear/Jira issues\n6. Whenever resolving build/deployment issues\n\n═══════════════════════════════════════════════════════════════\n\n🛠️ VIBE CLI Tool Usage:\n\n🤖 COPILOT Session Management:\n```bash\n# Create new session (initial setup)\nvibe copilot save -n \"project-feature\" -t \"development,linear\" -c \"Development session started\" --project-type \"CLI Tool\" --tech-stack \"TypeScript,Commander.js\"\n\n# Add conversation content (every time)\nvibe copilot edit \"session-name\" --append-conversation \"Q: [User question]\\n\\nA: [AI answer and solution]\\n\\nResult: [Application result]\\n\\nLearning: [Learned patterns/principles]\"\n\n# Check session list\nvibe copilot list\n\n# Load previous session (copied to clipboard)\nvibe copilot load [session-name]\n\n# Export current project information\nvibe copilot export\n\n# Edit session\nvibe copilot edit \"session-name\" --add-tags \"new-tag1,new-tag2\" --add-patterns \"new-pattern1;new-pattern2\"\n\n# Show session details\nvibe copilot show \"session-name\"\n\n# Delete session\nvibe copilot delete \"session-name\"\n```\n\n🔗 LINEAR Integration:\n```bash\n# Linear setup\nvibe linear config set-token <token>\nvibe linear config teams  # List teams\nvibe linear config set-team <team-id>\nvibe linear config projects  # List projects\nvibe linear config set-project <project-id>\nvibe linear config get  # Check current settings\n\n# Workspace initialization (interactive)\nvibe linear config init\n\n# Issue management\nvibe linear issue list --limit 20  # List issues\nvibe linear issue create --title \"title\" --description \"description\"\n\n# Output issue information for AI visibility\nvibe linear copilot <issue-id>\n```\n\n🎫 JIRA Integration (Coming Soon):\n```bash\n# Jira setup (planned)\nvibe jira config set-token <token>\nvibe jira config set-domain <domain>\n\n# Issue management (planned)\nvibe jira issue list\nvibe jira issue create --title \"title\" --description \"description\"\nvibe jira copilot <issue-key>\n```\n\n═══════════════════════════════════════════════════════════════\n\n📊 Information Structure to Save:\n- Question: Specific question asked by user\n- Answer: Provided solution and code changes\n- Result: Problem resolved after application\n- Learning: Patterns or principles learned in this process\n- Tool Integration: Connection with Linear/Jira issues\n\n🏷️ Tag Classification System:\n- By Technology: typescript, commander, chalk, linear-api, jira-api\n- By Work Type: restructure, session-management, es-modules, issue-tracking\n- By Problem: build-error, import-issue, command-structure, api-integration\n- By Tool: linear, jira, copilot, git\n\n🔄 Workflow Automation:\n1. Start issue work: `vibe linear copilot <issue-id>` → Check issue information\n2. During development: Save important Q&A to session in real-time\n3. Work completion: Organize entire process as session for future similar work\n\n💡 Actual Usage Example:\n1. Check Linear issue: `vibe linear copilot ABC-123`\n2. Start development session: `vibe copilot save -n \"ABC-123-feature\" -t \"linear,feature\"`\n3. During development conversation: AI automatically executes `vibe copilot edit`\n4. Use in other projects: `vibe copilot load ABC-123-feature`\n\n🚀 Important: Please automatically save all important conversations to sessions from now on!",
+        "messages": {
+            "projectInfo": "📋 Project Information:",
+            "project": "Project:",
+            "sessionName": "Recommended Session Name:",
+            "workingDir": "Working Directory:",
+            "language": "Language:",
+            "currentContext": "📁 Current Project Context:",
+            "important": "🚀 Important: Please automatically save all important conversations to sessions from now on!",
+            "autoSaveNote": "When requested \"Update session\" or \"Save this content\" during conversation, use the above commands to accumulate knowledge in real-time.",
+            "success": "✅ Vibe CLI AI Agent integrated instructions copied to clipboard!",
+            "nextStep": "💡 Now paste (Ctrl+V) into Copilot Chat to start the integrated AI development environment.",
+            "recommendedSteps": "🚀 Recommended Next Steps:",
+            "steps": [
+                "Paste the above instructions into Copilot Chat",
+                "Request 'Please automatically manage all work according to these instructions from now on'",
+                "Create first session: vibe copilot save -n \"{sessionName}\" -t \"development\"",
+                "Linear setup: vibe linear config set-token <token>"
+            ],
+            "tips": [
+                "💡 Tip: Request 'Update session' during conversation to save the latest content.",
+                "🔗 When working on Linear issues: vibe linear copilot <issue-id> → Automatic issue information output"
+            ]
+        }
+    },
+    "copilot": {
+        "description": "🤖 Copilot Chat session management - Save, load conversations and share context",
+        "save": {
+            "description": "Save Copilot Chat session (AI Agent exclusive - includes all information)",
+            "options": {
+                "name": "Session name",
+                "tags": "Tags (comma separated)",
+                "conversation": "Conversation content",
+                "addPatterns": "Additional patterns (semicolon separated)",
+                "projectType": "Project type",
+                "techStack": "Tech stack (comma separated)",
+                "fileStructure": "File structure information"
+            },
+            "saving": "💾 Saving AI Agent session...",
+            "success": "✅ AI session saved:",
+            "location": "📁 Save location: .copilot/sessions.json",
+            "tags": "🤖 Tags:",
+            "projectType": "🔧 Project type:",
+            "patterns": "📚 Pattern count:",
+            "none": "none",
+            "count": ""
+        },
+        "load": {
+            "description": "Load saved Copilot Chat session",
+            "argument": "Session name to load (omit to show list)",
+            "noSessions": "📭 No saved sessions.",
+            "sessionList": "📋 Saved Copilot Chat session list:",
+            "date": "Date:",
+            "tags": "Tags:",
+            "usage": "💡 Usage: vibe copilot load <session-name>",
+            "sessionInfo": "📋 Session info:",
+            "name": "Name:",
+            "contextCopied": "✅ Session context copied to clipboard!",
+            "pasteInstruction": "💡 Now paste (Ctrl+V) into Copilot Chat to share previous context.",
+            "contextTemplate": {
+                "title": "Previous project context:",
+                "projectType": "Project type:",
+                "techStack": "Main tech stack:",
+                "fileStructure": "File structure:",
+                "patterns": "Learned patterns:",
+                "conversation": "Previous conversation summary:",
+                "footer": "Please help with the current project using the above context."
+            }
+        },
+        "list": {
+            "description": "Display saved session list",
+            "options": {
+                "tag": "Filter by specific tag"
+            },
+            "noSessionsWithTag": "📭 No sessions found for tag '{tag}'.",
+            "noSessions": "📭 No saved sessions.",
+            "sessionListTitle": "📋 Copilot Chat session list",
+            "withTag": " (tag: {tag})",
+            "date": "Date:",
+            "project": "Project:",
+            "tags": "Tags:",
+            "usage": "💡 Usage: vibe copilot load <session-name>"
+        },
+        "export": {
+            "description": "Copy current project's basic information to clipboard",
+            "exporting": "📤 Generating basic project information...",
+            "success": "✅ Basic project information copied to clipboard!",
+            "instruction": "💡 Now paste into Copilot Chat to ask about the project.",
+            "note": "🤖 AI Agent will directly analyze and provide necessary details.",
+            "template": {
+                "title": "Current project basic information:",
+                "packageInfo": "Package info:",
+                "currentDir": "Current directory:",
+                "footer": "Please help with this project. AI Agent will directly analyze and provide additional information."
+            }
+        },
+        "delete": {
+            "description": "Delete saved session",
+            "argument": "Session name to delete",
+            "success": "✅ Session '{sessionName}' deleted."
+        },
+        "edit": {
+            "description": "Edit saved session content (Agent exclusive)",
+            "argument": "Session name to edit",
+            "options": {
+                "addTags": "Add tags (comma separated)",
+                "removeTags": "Remove tags (comma separated)",
+                "addPatterns": "Add patterns (semicolon separated)",
+                "setConversation": "Set conversation content",
+                "appendConversation": "Append conversation content"
+            },
+            "tagsAdded": "✅ Tags added:",
+            "tagsRemoved": "🗑️ Tags removed:",
+            "patternsAdded": "✅ Patterns added: {count}",
+            "conversationSet": "✅ Conversation content set",
+            "conversationAppended": "✅ Conversation content appended",
+            "updated": "📝 Session '{sessionName}' updated"
+        },
+        "updateContext": {
+            "description": "Update session's project context (Agent exclusive)",
+            "argument": "Session name to update",
+            "options": {
+                "projectType": "Set project type",
+                "addTech": "Add tech stack (comma separated)",
+                "packageInfo": "Set package info"
+            },
+            "projectTypeSet": "✅ Project type:",
+            "techAdded": "✅ Tech stack added:",
+            "packageInfoUpdated": "✅ Package info updated",
+            "contextUpdated": "📝 Session '{sessionName}' context updated"
+        },
+        "show": {
+            "description": "Display session details",
+            "argument": "Session name to view",
+            "session": "📋 Session:",
+            "date": "📅 Date:",
+            "tags": "🏷️ Tags:",
+            "project": "📦 Project:",
+            "techStack": "🛠️ Tech stack:",
+            "packageInfo": "📄 Package:",
+            "patterns": "🔍 Learned patterns:",
+            "fileStructure": "📁 File structure:",
+            "conversation": "💬 Conversation:",
+            "none": "none"
+        }
+    },
+    "lang": {
+        "description": "Language setting management",
+        "set": {
+            "description": "Set language",
+            "argument": "Language code (ko, en)",
+            "unsupported": "❌ Unsupported language: {language}",
+            "supportedLangs": "💡 Supported languages: {langs}",
+            "success": "✅ Language set to {language}.",
+            "configFile": "📁 Config file: .copilot/options.json"
+        },
+        "get": {
+            "description": "Check current language setting",
+            "currentLang": "📋 Current language setting:",
+            "language": "Language:",
+            "configFile": "Config file: .copilot/options.json"
+        }
+    },
+    "linear": {
+        "description": "🔗 Linear integration management - settings, issues, and Copilot integration in one place",
+        "config": {
+            "description": "Linear API token and settings management - Essential setup for Linear integration",
+            "setToken": {
+                "description": "Save Linear API token (issue from https://linear.app/settings/api)",
+                "argument": "Linear API token",
+                "success": "✅ Token saved."
+            },
+            "setTeam": {
+                "description": "Set Linear team ID (filter issues by specific team)",
+                "argument": "Linear team ID",
+                "success": "✅ Team ID saved."
+            },
+            "setProject": {
+                "description": "Set Linear project ID (filter issues by specific project)",
+                "argument": "Linear project ID",
+                "success": "✅ Project ID saved."
+            },
+            "get": {
+                "description": "Check current saved settings (token, team ID, project ID)",
+                "currentSettings": "📦 Current settings:",
+                "token": "Token:",
+                "teamId": "Team ID:",
+                "projectId": "Project ID:",
+                "workspace": "Workspace:",
+                "configured": "configured",
+                "notConfigured": "not configured",
+                "default": "default"
+            },
+            "teams": {
+                "description": "Get available Linear teams list",
+                "noToken": "❌ Please set API token first: `vibe config set-token <token>`",
+                "title": "📋 Available teams list:\n",
+                "tip": "💡 Tip: Use 'vibe config set-team <ID>' command to set team"
+            },
+            "projects": {
+                "description": "Get available projects list for current team",
+                "noTeam": "❌ Please set team first. `vibe config set-team <teamId>`",
+                "title": "📋 Available projects list:\n",
+                "descriptionLabel": "Description:",
+                "tip": "💡 Tip: Use 'vibe config set-project <ID>' command to set project"
+            },
+            "init": {
+                "description": "Initialize new workspace (interactive)",
+                "options": {
+                    "name": "Workspace name",
+                    "team": "Team ID",
+                    "project": "Project ID"
+                },
+                "starting": "🚀 Starting new workspace initialization...\n",
+                "noToken": "❌ Please set API token first: `vibe linear config set-token <token>`",
+                "availableTeams": "📋 Available teams list:\n",
+                "teamInstruction": "Copy a team ID from the list above and run `vibe linear config init --team <ID>` again",
+                "availableProjects": "📋 Available projects list:\n",
+                "projectInstruction": "Copy a project ID from the list above and run `vibe linear config init --team <teamId> --project <projectId>` again",
+                "success": "✅ Workspace successfully initialized!",
+                "configFile": "📁 Config file: {path}/.vibe-config.json",
+                "nextSteps": "🎉 You can now use the following commands:",
+                "commands": [
+                    "vibe linear issue list",
+                    "vibe linear issue create --title 'title' --description 'description'",
+                    "vibe copilot export (share project context)"
+                ]
+            }
+        },
+        "issue": {
+            "description": "Linear issue management - View, create and manage issues",
+            "list": {
+                "description": "Get Linear issues list (based on configured team/project)",
+                "option": "Number of issues to retrieve (default: 10)",
+                "noIssues": "📭 No issues matching the criteria.",
+                "title": "\n📋 Linear issues list (max {limit}):\n",
+                "tip": "💡 Tip: Use 'vibe linear copilot <issueId>' command to share issue info with AI",
+                "status": "Status:",
+                "createdAt": "Created:"
+            },
+            "create": {
+                "description": "Create new issue in Linear (team ID/project ID must be configured)",
+                "options": {
+                    "title": "Issue title",
+                    "description": "Issue description"
+                },
+                "success": "✅ Issue successfully created.",
+                "tip": "💡 Tip: Use 'vibe copilot save --name \"{title}\" --tags \"linear,issue\"' command to save this issue as a session"
+            }
+        },
+        "copilotIssue": {
+            "description": "Copy Linear issue information to clipboard for Copilot questions",
+            "argument": "Linear issue ID (e.g., DEV-123 or internal ID)",
+            "issueInfo": "📋 Linear issue information:",
+            "success": "✅ Issue information copied to clipboard!",
+            "instruction": "💡 Now paste (Ctrl+V) into Copilot to ask questions.",
+            "issueTitle": "Title:",
+            "issueStatus": "Status:",
+            "issueDescription": "Description:",
+            "noDescription": "No description available."
+        },
+        "errors": {
+            "noConfig": "❌ Token or teamId, projectId not configured. Please set up first with `vibe config`.",
+            "graphqlError": "❌ GraphQL error: {error}",
+            "noDataResponse": "❌ No data in API response.",
+            "noIssueCreateResponse": "❌ Issue creation response is invalid.",
+            "issueCreateFailed": "❌ Failed to create issue."
+        }
+    }
+}

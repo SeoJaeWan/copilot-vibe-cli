@@ -1,0 +1,278 @@
+{
+    "program": {
+        "name": "vibe",
+        "description": "🚀 Vibe Dev CLI - GitHub Copilot Chat과 vibe 코딩을 위한 생산성 극대화 도구",
+        "version": "3.0.0"
+    },
+    "init": {
+        "title": "🤖 Vibe CLI AI Agent 통합 학습 지시사항",
+        "template": "🚀 Vibe CLI AI Agent 통합 학습 지시사항\n\n🎯 목적:\n개발 중 모든 상호작용을 자동으로 저장하여 지식을 축적하고, Linear/Jira 등과의 통합을 통해 개발 생산성을 극대화\n\n═══════════════════════════════════════════════════════════════\n\n📝 자동 저장 규칙:\n1. 사용자가 중요한 기술적 질문을 할 때마다\n2. 코드 수정이나 새로운 기능 구현을 제공할 때마다\n3. 문제 해결 방법을 제안할 때마다\n4. 아키텍처나 설계 결정을 내릴 때마다\n5. Linear/Jira 이슈 작업을 할 때마다\n6. 빌드/배포 문제를 해결할 때마다\n\n═══════════════════════════════════════════════════════════════\n\n🛠️ VIBE CLI 도구 사용법:\n\n🤖 COPILOT 세션 관리:\n```bash\n# 새 세션 생성 (최초 설정)\nvibe copilot save -n \"프로젝트-기능\" -t \"development,linear\" -c \"개발 세션 시작\" --project-type \"CLI 도구\" --tech-stack \"TypeScript,Commander.js\"\n\n# 대화 내용 추가 (매번)\nvibe copilot edit \"세션명\" --append-conversation \"Q: [사용자 질문]\\n\\nA: [AI 답변 및 해결방법]\\n\\nResult: [적용 후 결과]\\n\\nLearning: [학습된 패턴/원칙]\"\n\n# 세션 목록 확인\nvibe copilot list\n\n# 이전 세션 불러오기 (클립보드에 복사됨)\nvibe copilot load [세션명]\n\n# 현재 프로젝트 정보 내보내기\nvibe copilot export\n\n# 세션 편집\nvibe copilot edit \"세션명\" --add-tags \"새태그1,새태그2\" --add-patterns \"새패턴1;새패턴2\"\n\n# 세션 상세보기\nvibe copilot show \"세션명\"\n\n# 세션 삭제\nvibe copilot delete \"세션명\"\n```\n\n🔗 LINEAR 연동:\n```bash\n# Linear 설정\nvibe linear config set-token <토큰>\nvibe linear config teams  # 팀 목록\nvibe linear config set-team <팀-id>\nvibe linear config projects  # 프로젝트 목록\nvibe linear config set-project <프로젝트-id>\nvibe linear config get  # 현재 설정 확인\n\n# 워크스페이스 초기화 (대화형)\nvibe linear config init\n\n# 이슈 관리\nvibe linear issue list --limit 20  # 이슈 목록\nvibe linear issue create --title \"제목\" --description \"설명\"\n\n# AI가 볼 수 있도록 이슈 정보 출력\nvibe linear copilot <이슈-id>\n```\n\n🎫 JIRA 연동 (예정):\n```bash\n# Jira 설정 (계획됨)\nvibe jira config set-token <토큰>\nvibe jira config set-domain <도메인>\n\n# 이슈 관리 (계획됨)\nvibe jira issue list\nvibe jira issue create --title \"제목\" --description \"설명\"\nvibe jira copilot <이슈-키>\n```\n\n═══════════════════════════════════════════════════════════════\n\n📊 저장할 정보 구조:\n- 질문: 사용자가 한 구체적인 질문\n- 답변: 제공된 해결책과 코드 변경사항\n- 결과: 적용 후 해결된 문제\n- 학습: 이 과정에서 학습된 패턴이나 원칙\n- 도구 연동: Linear/Jira 이슈와의 연결\n\n🏷️ 태그 분류 체계:\n- 기술별: typescript, commander, chalk, linear-api, jira-api\n- 작업 유형별: restructure, session-management, es-modules, issue-tracking\n- 문제별: build-error, import-issue, command-structure, api-integration\n- 도구별: linear, jira, copilot, git\n\n🔄 워크플로우 자동화:\n1. 이슈 작업 시작: `vibe linear copilot <이슈-id>` → 이슈 정보 확인\n2. 개발 중: 중요한 Q&A를 실시간으로 세션에 저장\n3. 작업 완료: 전체 과정을 세션으로 정리하여 향후 유사 작업에 활용\n\n💡 실제 사용 예시:\n1. Linear 이슈 확인: `vibe linear copilot ABC-123`\n2. 개발 세션 시작: `vibe copilot save -n \"ABC-123-기능\" -t \"linear,feature\"`\n3. 개발 대화 중: AI가 자동으로 `vibe copilot edit` 실행\n4. 다른 프로젝트에서 활용: `vibe copilot load ABC-123-기능`\n\n🚀 중요: 이제부터 모든 중요한 대화를 자동으로 세션에 저장해 주세요!",
+        "messages": {
+            "projectInfo": "AI Agent에게 Vibe CLI 도구 사용법과 자동 세션 관리 지시사항을 제공합니다",
+            "project": "프로젝트:",
+            "sessionName": "기본 세션 이름 (프로젝트명 기반 자동 생성)",
+            "workingDir": "작업 디렉토리:",
+            "language": "언어:",
+            "currentContext": "📁 현재 프로젝트 컨텍스트:",
+            "important": "🚀 중요: 이제부터 모든 중요한 대화를 자동으로 세션에 저장해 주세요!",
+            "autoSaveNote": "대화 중 '세션 업데이트해줘' 또는 '이 내용 저장해줘' 요청 시 위 명령어들을 사용해 실시간으로 지식을 축적하세요.",
+            "success": "✅ Vibe CLI AI Agent 통합 지시사항이 클립보드에 복사되었습니다!",
+            "nextStep": "💡 이제 Copilot Chat에 붙여넣기(Ctrl+V)해서 통합 AI 개발 환경을 시작하세요.",
+            "recommendedSteps": "🚀 권장 다음 단계:",
+            "steps": [
+                "Copilot Chat에 위 지시사항 붙여넣기",
+                "'이제부터 이 지시사항에 따라 자동으로 모든 작업을 관리해줘' 요청",
+                "첫 세션 생성: vibe copilot save -n \"{sessionName}\" -t \"development\"",
+                "Linear 설정: vibe linear config set-token <토큰>"
+            ],
+            "tips": [
+                "💡 팁: 대화 중간에 '세션 업데이트해줘'라고 요청하면 최신 내용이 저장됩니다.",
+                "🔗 Linear 이슈 작업 시: vibe linear copilot <이슈ID> → 이슈 정보 자동 출력"
+            ]
+        }
+    },
+    "copilot": {
+        "description": "🤖 Copilot Chat 세션 관리 - 대화 저장, 불러오기 및 컨텍스트 공유",
+        "save": {
+            "description": "Copilot Chat 세션 저장 (AI Agent 전용 - 모든 정보 포함)",
+            "options": {
+                "name": "세션 이름",
+                "tags": "태그 (쉼표 구분)",
+                "conversation": "대화 내용",
+                "addPatterns": "추가 패턴 (세미콜론 구분)",
+                "projectType": "프로젝트 유형",
+                "techStack": "기술 스택 (쉼표 구분)",
+                "fileStructure": "파일 구조 정보"
+            },
+            "saving": "💾 AI Agent 세션 저장 중...",
+            "success": "✅ AI 세션 저장됨:",
+            "location": "📁 저장 위치: .copilot/sessions.json",
+            "tags": "🤖 태그:",
+            "projectType": "🔧 프로젝트 유형:",
+            "patterns": "📚 패턴 개수:",
+            "none": "없음",
+            "count": "개"
+        },
+        "load": {
+            "description": "저장된 Copilot Chat 세션 불러오기",
+            "argument": "불러올 세션 이름 (생략 시 목록 표시)",
+            "noSessions": "📭 저장된 세션이 없습니다.",
+            "sessionList": "📋 저장된 Copilot Chat 세션 목록:",
+            "date": "날짜:",
+            "tags": "태그:",
+            "usage": "💡 사용법: vibe copilot load <세션명>",
+            "sessionInfo": "📋 세션 정보:",
+            "name": "이름:",
+            "contextCopied": "✅ 세션 컨텍스트가 클립보드에 복사되었습니다!",
+            "pasteInstruction": "💡 이제 Copilot Chat에 붙여넣기(Ctrl+V)해서 이전 컨텍스트를 공유하세요.",
+            "contextTemplate": {
+                "title": "이전 프로젝트 컨텍스트:",
+                "projectType": "프로젝트 유형:",
+                "techStack": "주요 기술 스택:",
+                "fileStructure": "파일 구조:",
+                "patterns": "학습된 패턴:",
+                "conversation": "이전 대화 요약:",
+                "footer": "위 컨텍스트를 바탕으로 현재 프로젝트를 도와주세요."
+            }
+        },
+        "list": {
+            "description": "저장된 세션 목록 표시",
+            "options": {
+                "tag": "특정 태그로 필터링"
+            },
+            "noSessionsWithTag": "📭 '{tag}' 태그의 세션이 없습니다.",
+            "noSessions": "📭 저장된 세션이 없습니다.",
+            "sessionListTitle": "📋 Copilot Chat 세션 목록",
+            "withTag": " (태그: {tag})",
+            "date": "날짜:",
+            "project": "프로젝트:",
+            "tags": "태그:",
+            "usage": "💡 사용법: vibe copilot load <세션명>"
+        },
+        "export": {
+            "description": "현재 프로젝트의 기본 정보를 클립보드에 복사",
+            "exporting": "📤 기본 프로젝트 정보 생성 중...",
+            "success": "✅ 기본 프로젝트 정보가 클립보드에 복사되었습니다!",
+            "instruction": "💡 이제 Copilot Chat에 붙여넣기해서 프로젝트에 대해 질문하세요.",
+            "note": "🤖 AI Agent가 직접 분석하여 필요한 세부사항을 제공합니다.",
+            "template": {
+                "title": "현재 프로젝트 기본 정보:",
+                "packageInfo": "패키지 정보:",
+                "currentDir": "현재 디렉토리:",
+                "footer": "이 프로젝트를 도와주세요. AI Agent가 직접 분석하여 추가 정보를 제공합니다."
+            }
+        },
+        "delete": {
+            "description": "저장된 세션 삭제",
+            "argument": "삭제할 세션 이름",
+            "success": "✅ 세션 '{sessionName}'이 삭제되었습니다."
+        },
+        "edit": {
+            "description": "저장된 세션 내용 편집 (Agent 전용)",
+            "argument": "편집할 세션 이름",
+            "options": {
+                "addTags": "태그 추가 (쉼표 구분)",
+                "removeTags": "태그 제거 (쉼표 구분)",
+                "addPatterns": "패턴 추가 (세미콜론 구분)",
+                "setConversation": "대화 내용 설정",
+                "appendConversation": "대화 내용 추가"
+            },
+            "tagsAdded": "✅ 태그 추가됨:",
+            "tagsRemoved": "🗑️ 태그 제거됨:",
+            "patternsAdded": "✅ 패턴 추가됨: {count}개",
+            "conversationSet": "✅ 대화 내용 설정됨",
+            "conversationAppended": "✅ 대화 내용 추가됨",
+            "updated": "📝 세션 '{sessionName}' 업데이트됨"
+        },
+        "updateContext": {
+            "description": "세션의 프로젝트 컨텍스트 업데이트 (Agent 전용)",
+            "argument": "업데이트할 세션 이름",
+            "options": {
+                "projectType": "프로젝트 유형 설정",
+                "addTech": "기술 스택 추가 (쉼표 구분)",
+                "packageInfo": "패키지 정보 설정"
+            },
+            "projectTypeSet": "✅ 프로젝트 유형:",
+            "techAdded": "✅ 기술 스택 추가됨:",
+            "packageInfoUpdated": "✅ 패키지 정보 업데이트됨",
+            "contextUpdated": "📝 세션 '{sessionName}' 컨텍스트 업데이트됨"
+        },
+        "show": {
+            "description": "세션 상세 정보 표시",
+            "argument": "조회할 세션 이름",
+            "session": "📋 세션:",
+            "date": "📅 날짜:",
+            "tags": "🏷️ 태그:",
+            "project": "📦 프로젝트:",
+            "techStack": "🛠️ 기술 스택:",
+            "packageInfo": "📄 패키지:",
+            "patterns": "🔍 학습된 패턴:",
+            "fileStructure": "📁 파일 구조:",
+            "conversation": "💬 대화:",
+            "none": "없음"
+        }
+    },
+    "lang": {
+        "description": "언어 설정 관리",
+        "set": {
+            "description": "언어 설정",
+            "argument": "언어 코드 (ko, en)",
+            "unsupported": "❌ 지원하지 않는 언어입니다: {language}",
+            "supportedLangs": "💡 지원하는 언어: {langs}",
+            "success": "✅ 언어가 {language}로 설정되었습니다.",
+            "configFile": "📁 설정 파일: .copilot/options.json"
+        },
+        "get": {
+            "description": "현재 언어 설정 확인",
+            "currentLang": "📋 현재 언어 설정:",
+            "language": "언어:",
+            "configFile": "설정 파일: .copilot/options.json"
+        }
+    },
+    "linear": {
+        "description": "🔗 Linear 통합 관리 - 설정, 이슈, Copilot 연동을 한 곳에서",
+        "config": {
+            "description": "Linear API 토큰 및 설정 관리",
+            "setToken": {
+                "description": "Linear API 토큰 저장 (https://linear.app/settings/api에서 발급)",
+                "argument": "Linear API token",
+                "success": "✅ 토큰이 저장되었습니다."
+            },
+            "setTeam": {
+                "description": "Linear 팀 ID 설정",
+                "argument": "Linear 팀 ID",
+                "success": "✅ 팀 ID가 저장되었습니다."
+            },
+            "setProject": {
+                "description": "Linear 프로젝트 ID 설정",
+                "argument": "Linear 프로젝트 ID",
+                "success": "✅ 프로젝트 ID가 저장되었습니다."
+            },
+            "get": {
+                "description": "현재 저장된 설정 확인",
+                "currentSettings": "📦 현재 Linear 설정:",
+                "token": "토큰:",
+                "teamId": "팀 ID:",
+                "projectId": "프로젝트 ID:",
+                "workspace": "워크스페이스:",
+                "configured": "설정됨",
+                "notConfigured": "미설정",
+                "default": "기본"
+            },
+            "teams": {
+                "description": "사용 가능한 Linear 팀 목록 조회",
+                "noToken": "❌ 먼저 API 토큰을 설정해주세요: `vibe linear config set-token <token>`",
+                "title": "📋 사용 가능한 팀 목록:\n",
+                "tip": "💡 팁: 'vibe linear config set-team <ID>' 명령어로 팀을 설정하세요"
+            },
+            "projects": {
+                "description": "현재 팀의 사용 가능한 프로젝트 목록 조회",
+                "noTeam": "❌ 먼저 팀을 설정해주세요. `vibe linear config set-team <teamId>`",
+                "title": "📋 사용 가능한 프로젝트 목록:\n",
+                "descriptionLabel": "설명:",
+                "tip": "💡 팁: 'vibe linear config set-project <ID>' 명령어로 프로젝트를 설정하세요"
+            },
+            "init": {
+                "description": "새 워크스페이스 초기화 (대화형)",
+                "options": {
+                    "name": "워크스페이스 이름",
+                    "team": "팀 ID",
+                    "project": "프로젝트 ID"
+                },
+                "starting": "🚀 새 워크스페이스 초기화를 시작합니다...\n",
+                "noToken": "❌ 먼저 API 토큰을 설정해주세요: `vibe linear config set-token <token>`",
+                "availableTeams": "📋 사용 가능한 팀 목록:\n",
+                "teamInstruction": "위 목록에서 팀 ID를 복사하여 `vibe linear config init --team <ID>` 명령어를 다시 실행하세요",
+                "availableProjects": "📋 사용 가능한 프로젝트 목록:\n",
+                "projectInstruction": "위 목록에서 프로젝트 ID를 복사하여 `vibe linear config init --team <팀ID> --project <프로젝트ID>` 명령어를 다시 실행하세요",
+                "success": "✅ 워크스페이스가 성공적으로 초기화되었습니다!",
+                "configFile": "📁 설정 파일: {path}/.vibe-config.json",
+                "nextSteps": "🎉 이제 다음 명령어들을 사용할 수 있습니다:",
+                "commands": [
+                    "vibe linear issue list",
+                    "vibe linear issue create --title '제목' --description '설명'",
+                    "vibe copilot export (프로젝트 컨텍스트 공유)"
+                ]
+            }
+        },
+        "issue": {
+            "description": "Linear 이슈 관리 - 이슈 조회, 생성 및 관리",
+            "list": {
+                "description": "Linear 이슈 목록 조회 (설정된 팀/프로젝트 기준)",
+                "option": "조회할 이슈 개수 (기본: 10)",
+                "noIssues": "📭 조건에 맞는 이슈가 없습니다.",
+                "title": "\n📋 Linear 이슈 목록 (최대 {limit}개):\n",
+                "tip": "💡 팁: 'vibe linear copilot <issueId>' 명령어로 이슈 정보를 AI와 공유할 수 있습니다",
+                "status": "상태:",
+                "createdAt": "생성일:"
+            },
+            "create": {
+                "description": "Linear에 새 이슈를 생성합니다 (팀ID/프로젝트ID 필수 설정)",
+                "options": {
+                    "title": "이슈 제목",
+                    "description": "이슈 설명"
+                },
+                "success": "✅ 이슈가 성공적으로 생성되었습니다.",
+                "tip": "💡 팁: 'vibe copilot save --name \"{title}\" --tags \"linear,issue\"' 명령어로 이 이슈를 세션으로 저장할 수 있습니다"
+            }
+        },
+        "copilotIssue": {
+            "description": "Linear 이슈 정보를 클립보드에 복사해 Copilot에 질문할 수 있게 합니다",
+            "argument": "Linear 이슈 ID (예: DEV-123 또는 내부 ID)",
+            "issueInfo": "📋 Linear 이슈 정보:",
+            "success": "✅ 이슈 정보가 클립보드에 복사되었습니다!",
+            "instruction": "💡 이제 Copilot에 붙여넣기(Ctrl+V)해서 질문하세요.",
+            "issueTitle": "제목:",
+            "issueStatus": "상태:",
+            "issueDescription": "설명:",
+            "noDescription": "설명이 없습니다."
+        },
+        "errors": {
+            "noConfig": "❌ 토큰 또는 teamId, projectId가 설정되지 않았습니다. `vibe linear config`로 먼저 설정해주세요.",
+            "graphqlError": "❌ GraphQL 오류: {error}",
+            "noDataResponse": "❌ API 응답에 데이터가 없습니다.",
+            "noIssueCreateResponse": "❌ 이슈 생성 응답이 올바르지 않습니다.",
+            "issueCreateFailed": "❌ 이슈 생성에 실패했습니다."
+        }
+    }
+}
