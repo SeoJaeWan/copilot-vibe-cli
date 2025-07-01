@@ -8,7 +8,7 @@ import chalk from "chalk";
 
 const program = new Command();
 
-program.name("vibe").description(t().program.description).version("1.1.1");
+program.name("vibe").description(t().program.description).version("1.2.0");
 
 // ============ 통합 AI Agent 초기화 ============
 program

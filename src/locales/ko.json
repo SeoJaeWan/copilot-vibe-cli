@@ -2,7 +2,7 @@
     "program": {
         "name": "vibe",
         "description": "🚀 Vibe Dev CLI - GitHub Copilot Chat과 vibe 코딩을 위한 생산성 극대화 도구",
-        "version": "1.1.1"
+        "version": "1.2.0"
     },
     "init": {
         "title": "🤖 Vibe CLI AI Agent 통합 학습 지시사항",
