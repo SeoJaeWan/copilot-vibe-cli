@@ -338,7 +338,7 @@ $ vibe init
 =============================================================
 
 Provides Vibe CLI tool usage and automatic session management instructions to AI Agent
-  Project: copilot-vibe-cli v1.1.0
+  Project: copilot-vibe-cli v1.1.1
   Default session name: copilot-vibe-cli-development
   Working directory: /current/project/path
   Language: en
