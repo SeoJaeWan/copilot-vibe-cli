@@ -2,7 +2,7 @@
     "program": {
         "name": "vibe",
         "description": "🚀 Vibe Dev CLI - GitHub Copilot Chat과 vibe 코딩을 위한 생산성 극대화 도구",
-        "version": "3.0.0"
+        "version": "1.2.0"
     },
     "init": {
         "title": "🤖 Vibe CLI AI Agent 통합 학습 지시사항",
@@ -215,17 +215,24 @@
                 "success": "✅ 워크스페이스가 성공적으로 초기화되었습니다!",
                 "configFile": "📁 설정 파일: {path}/.vibe-config.json",
                 "nextSteps": "🎉 이제 다음 명령어들을 사용할 수 있습니다:",
-                "commands": ["vibe linear issue list", "vibe linear issue create --title '제목' --description '설명'"]
+                "commands": [
+                    "vibe linear issue list",
+                    "vibe linear issue create --title '제목' --description '설명'"
+                ]
             }
         },
         "issue": {
             "description": "Linear 이슈 관리 - 이슈 조회, 생성 및 관리",
+            "view": {
+                "description": "특정 이슈의 상세 정보를 확인합니다",
+                "argument": "이슈 ID (내부 ID) 또는 Identifier (예: ABC-123)"
+            },
             "list": {
                 "description": "Linear 이슈 목록 조회 (설정된 팀/프로젝트 기준)",
                 "option": "조회할 이슈 개수 (기본: 10)",
                 "noIssues": "📭 조건에 맞는 이슈가 없습니다.",
                 "title": "\n📋 Linear 이슈 목록 (최대 {limit}개):\n",
-                "tip": "💡 팁: 'vibe linear copilot <issueId>' 명령어로 이슈 정보를 AI와 공유할 수 있습니다",
+                "tip": "💡 팁: 'vibe linear issue <issueId>' 명령어로 이슈 상세 정보를 확인할 수 있습니다",
                 "status": "상태:",
                 "createdAt": "생성일:"
             },

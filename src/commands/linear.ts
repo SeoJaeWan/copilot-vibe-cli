@@ -1,6 +1,13 @@
 import {Command} from "commander";
 import {getConfig, setToken, setTeamId, setProjectId, initWorkspace} from "../utils/config.js";
-import {fetchLinearTeams, fetchLinearProjects, fetchLinearIssues, createLinearIssue, fetchLinearIssueById} from "../services/linear.js";
+import {
+    fetchLinearTeams,
+    fetchLinearProjects,
+    fetchLinearIssues,
+    createLinearIssue,
+    fetchLinearIssueById,
+    fetchLinearIssueByIdOrIdentifier
+} from "../services/linear.js";
 import {t} from "../utils/locale.js";
 import chalk from "chalk";
 
@@ -8,10 +15,8 @@ export const linearCommand = new Command("linear");
 
 linearCommand.description(t().linear.description);
 
-// ============ 설정 관리 ============
-const configSubCommand = linearCommand.command("config").description(t().linear.config.description);
-
-configSubCommand
+// ============ 토큰 관리 (Top-level) ============
+linearCommand
     .command("set-token")
     .description(t().linear.config.setToken.description)
     .argument("<token>", t().linear.config.setToken.argument)
@@ -20,7 +25,7 @@ configSubCommand
         console.log(chalk.green(t().linear.config.setToken.success));
     });
 
-configSubCommand
+linearCommand
     .command("set-team")
     .description(t().linear.config.setTeam.description)
     .argument("<teamId>", t().linear.config.setTeam.argument)
@@ -29,7 +34,7 @@ configSubCommand
         console.log(chalk.green(t().linear.config.setTeam.success));
     });
 
-configSubCommand
+linearCommand
     .command("set-project")
     .description(t().linear.config.setProject.description)
     .argument("<projectId>", t().linear.config.setProject.argument)
@@ -38,8 +43,8 @@ configSubCommand
         console.log(chalk.green(t().linear.config.setProject.success));
     });
 
-configSubCommand
-    .command("get")
+linearCommand
+    .command("get-config")
     .description(t().linear.config.get.description)
     .action(() => {
         const config = getConfig();
@@ -53,7 +58,7 @@ configSubCommand
         console.log(chalk.gray(`  ${locale.linear.config.get.workspace} ${config.workspaceName || locale.linear.config.get.default}`));
     });
 
-configSubCommand
+linearCommand
     .command("teams")
     .description(t().linear.config.teams.description)
     .action(async () => {
@@ -72,7 +77,7 @@ configSubCommand
         }
     });
 
-configSubCommand
+linearCommand
     .command("projects")
     .description(t().linear.config.projects.description)
     .action(async () => {
@@ -101,10 +106,10 @@ configSubCommand
         }
     });
 
-configSubCommand
+linearCommand
     .command("init")
     .description(t().linear.config.init.description)
-    .option("-n, --name <name>", t().linear.config.init.options.name)
+    .option("-n, --name <n>", t().linear.config.init.options.name)
     .option("-t, --team <teamId>", t().linear.config.init.options.team)
     .option("-p, --project <projectId>", t().linear.config.init.options.project)
     .action(async options => {
@@ -161,10 +166,8 @@ configSubCommand
         }
     });
 
-// ============ 이슈 관리 ============
-const issueSubCommand = linearCommand.command("issue").description(t().linear.issue.description);
-
-issueSubCommand
+// ============ 이슈 목록 조회 ============
+linearCommand
     .command("list")
     .description(t().linear.issue.list.description)
     .option("--limit <number>", t().linear.issue.list.option, "10")
@@ -200,7 +203,8 @@ issueSubCommand
         }
     });
 
-issueSubCommand
+// ============ 이슈 생성 ============
+linearCommand
     .command("create")
     .description(t().linear.issue.create.description)
     .requiredOption("--title <title>", t().linear.issue.create.options.title)
@@ -221,19 +225,25 @@ issueSubCommand
         }
     });
 
-// ============ Copilot 연동 ============
+// ============ 이슈 상세 보기 ============
+// 이슈 상세 보기 - ID와 Identifier 모두 지원
 linearCommand
-    .command("copilot")
-    .description(t().linear.copilotIssue.description)
-    .argument("<issueId>", t().linear.copilotIssue.argument)
-    .action(async issueId => {
+    .command("issue")
+    .argument("<issueIdOrIdentifier>", t().linear.issue.view.argument)
+    .description(t().linear.issue.view.description)
+    .action(async (issueIdOrIdentifier: string) => {
         try {
-            const issue = await fetchLinearIssueById(issueId);
-            const locale = t(); // AI Agent가 볼 수 있도록 구조화된 이슈 정보 출력
+            const issue = await fetchLinearIssueByIdOrIdentifier(issueIdOrIdentifier);
+            const locale = t();
+
+            // AI Agent가 볼 수 있도록 구조화된 이슈 정보 출력
             console.log(chalk.blue(locale.linear.copilotIssue.issueInfo));
             console.log(chalk.blue("=" + "=".repeat(50)));
             console.log(chalk.green(`📌 ${locale.linear.copilotIssue.issueTitle} ${issue.title}`));
             console.log(chalk.gray(`🆔 ID: ${issue.id}`));
+            if (issue.identifier) {
+                console.log(chalk.cyan(`🔖 Identifier: ${issue.identifier}`));
+            }
             console.log(chalk.yellow(`📊 ${locale.linear.copilotIssue.issueStatus} ${issue.state.name}`));
 
             console.log("");

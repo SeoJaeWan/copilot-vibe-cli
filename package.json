@@ -1,6 +1,6 @@
 {
     "name": "copilot-vibe-cli",
-    "version": "1.0.1",
+    "version": "1.2.0",
     "type": "module",
     "description": "🚀 GitHub Copilot Chat과 vibe 코딩을 위한 생산성 극대화 도구. 코드 컨텍스트 관리, AI 협업 최적화, 개발 워크플로우 자동화 기능 제공",
     "main": "dist/index.js",
@@ -11,9 +11,16 @@
         "start": "node dist/index.js",
         "dev": "tsx src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc --project tsconfig.json",
+        "build": "tsc --project tsconfig.json && node scripts/copy-assets.js",
         "clean": "rm -rf dist",
-        "prepublishOnly": "npm run clean && npm run build"
+        "prepublishOnly": "npm run clean && npm run build",
+        "version:patch": "npm version patch --no-git-tag-version && node scripts/update-version.js",
+        "version:minor": "npm version minor --no-git-tag-version && node scripts/update-version.js",
+        "version:major": "npm version major --no-git-tag-version && node scripts/update-version.js",
+        "version:sync": "node scripts/update-version.js",
+        "release:patch": "npm run version:patch && npm run build",
+        "release:minor": "npm run version:minor && npm run build",
+        "release:major": "npm run version:major && npm run build"
     },
     "files": [
         "dist/**/*",
@@ -23,7 +30,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/SeoJaeWan/vibe-dev-cli.git"
+        "url": "git+https://github.com/SeoJaeWan/copilot-vibe-cli.git"
     },
     "keywords": [
         "copilot",
@@ -43,9 +50,9 @@
     "author": "SeoJaeWan",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/SeoJaeWan/vibe-dev-cli/issues"
+        "url": "https://github.com/SeoJaeWan/copilot-vibe-cli/issues"
     },
-    "homepage": "https://github.com/SeoJaeWan/vibe-dev-cli#readme",
+    "homepage": "https://github.com/SeoJaeWan/copilot-vibe-cli#readme",
     "dependencies": {
         "chalk": "^5.4.1",
         "clipboardy": "^4.0.0",
