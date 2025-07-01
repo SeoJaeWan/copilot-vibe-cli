@@ -1,6 +1,9 @@
 import {getLanguage, setLanguage as saveLanguage, type Local} from "./options.js";
-import koLocale from "../locales/ko.json" with { type: "json" };
-import enLocale from "../locales/en.json" with { type: "json" };
+import fs from "fs";
+import path from "path";
+import {fileURLToPath} from "url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export interface LocaleData {
     program: {
@@ -216,6 +219,10 @@ export interface LocaleData {
         };
         issue: {
             description: string;
+            view: {
+                description: string;
+                argument: string;
+            };
             list: {
                 description: string;
                 option: string;
@@ -259,11 +266,20 @@ export interface LocaleData {
 let currentLocale: Local | null = null;
 const localeCache: Map<Local, LocaleData> = new Map();
 
-// 정적으로 import된 locale 데이터
-const localeData: Record<Local, LocaleData> = {
-    ko: koLocale as LocaleData,
-    en: enLocale as LocaleData
-};
+// JSON 파일을 동적으로 로드하는 함수
+function loadLocaleFile(locale: Local): LocaleData {
+    try {
+        const localePath = path.join(__dirname, `../locales/${locale}.json`);
+        const fileContent = fs.readFileSync(localePath, "utf-8");
+        return JSON.parse(fileContent) as LocaleData;
+    } catch (error) {
+        console.warn(`Failed to load locale file for '${locale}':`, error);
+        if (locale !== "en") {
+            return loadLocaleFile("en"); // Fallback to English
+        }
+        throw new Error(`Locale '${locale}' not found and no fallback available`);
+    }
+}
 
 export function setLocale(locale: Local) {
     const supportedLocales = ["ko", "en"];
@@ -290,15 +306,7 @@ export function loadLocale(locale: Local): LocaleData {
         return localeCache.get(locale)!;
     }
 
-    const data = localeData[locale];
-    if (!data) {
-        console.warn(`Failed to load locale '${locale}': not found`);
-        if (locale !== "en") {
-            return loadLocale("en"); // Fallback to English
-        }
-        throw new Error(`Locale '${locale}' not found and no fallback available`);
-    }
-
+    const data = loadLocaleFile(locale);
     localeCache.set(locale, data);
     return data;
 }

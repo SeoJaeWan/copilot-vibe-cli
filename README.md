@@ -54,7 +54,7 @@ vibe lang set ko
 Generate a Personal API Key from [Linear Settings](https://linear.app/settings/api) and configure it:
 
 ```bash
-vibe linear config set-token YOUR_LINEAR_API_TOKEN
+vibe linear set-token YOUR_LINEAR_API_TOKEN
 ```
 
 ### 4. Workspace Initialization
@@ -62,7 +62,7 @@ vibe linear config set-token YOUR_LINEAR_API_TOKEN
 Run interactive workspace initialization in your project directory:
 
 ```bash
-vibe linear config init
+vibe linear init
 ```
 
 ### 5. Start AI Session Management
@@ -74,8 +74,8 @@ Create your first development session and start collaborating with AI Agent:
 vibe copilot save -n "project-name-feature" -t "development,feature" -c "Start new feature development" --project-type "Web Application" --tech-stack "React,TypeScript"
 
 # Work with issues integration
-vibe linear issue list
-vibe linear copilot <issue-ID>  # Copy issue information to clipboard
+vibe linear list
+vibe linear issue <issue-ID>  # View issue details
 
 # Load session (context copied to clipboard)
 vibe copilot load "session-name"
@@ -96,7 +96,7 @@ vibe copilot edit "session-name" --append-conversation "Q: [question]\nA: [answe
 
 ```bash
 # When starting issue work
-vibe linear copilot <issue-ID>  # Automatically output issue information
+vibe linear issue <issue-ID>  # View issue details with AI-friendly format
 
 # Create new issue
 vibe linear issue create --title "feature-name" --description "detailed description"
@@ -274,24 +274,26 @@ vibe copilot update-context "session-name" --project-type "new type" --add-tech 
 Handle Linear issue management and AI collaboration in one place.
 
 ```bash
-# Linear configuration
-vibe linear config set-token <token>      # Set API token
-vibe linear config teams                  # Available teams list
-vibe linear config set-team <team-ID>     # Set team
-vibe linear config projects               # Current team's project list
-vibe linear config set-project <project-ID>  # Set project
-vibe linear config get                    # Check current settings
+# Linear configuration (simplified commands)
+vibe linear set-token <token>             # Set API token
+vibe linear teams                         # Available teams list
+vibe linear set-team <team-ID>            # Set team
+vibe linear projects                      # Current team's project list
+vibe linear set-project <project-ID>      # Set project
+vibe linear get-config                    # Check current settings
 
 # Workspace initialization (interactive)
-vibe linear config init
+vibe linear init
 
 # Issue management
-vibe linear issue list                    # Issue list (default 10)
-vibe linear issue list --limit 20         # Up to 20
-vibe linear issue create --title "title" --description "description"
+vibe linear list                          # Issue list (default 10)
+vibe linear list --limit 20               # Up to 20 issues
+vibe linear create --title "title" --description "description"
 
-# Copilot integration
-vibe linear copilot <issue-ID>            # Copy issue information to clipboard for AI sharing
+# Issue details (supports both ID and Identifier)
+vibe linear issue <issue-ID-or-identifier>   # View detailed issue information
+vibe linear issue ABC-123                    # Using identifier
+vibe linear issue 550e8400-e29b-41d4-a716-446655440000  # Using internal ID
 ```
 
 ## 🎯 Usage Examples
@@ -336,7 +338,7 @@ $ vibe init
 =============================================================
 
 Provides Vibe CLI tool usage and automatic session management instructions to AI Agent
-  Project: copilot-vibe-cli v1.0.1
+  Project: copilot-vibe-cli v1.1.0
   Default session name: copilot-vibe-cli-development
   Working directory: /current/project/path
   Language: en
@@ -498,35 +500,11 @@ This project is distributed under the MIT License.
 
 → Check if Team ID and Project ID are correct
 
-### AI Agent Related Issues
-
-**When AI Agent doesn't automatically save sessions:**
-
-1. Provide instructions to AI again with `vibe init`
-2. Explicitly ask AI to "update session"
-3. Manually execute `vibe copilot edit` command
-
 ## 📞 Support and Contact
 
 -   🐛 Report Issues: [GitHub Issues](https://github.com/SeoJaeWan/vibe-dev-cli/issues)
 -   💬 Feature Requests: [GitHub Discussions](https://github.com/SeoJaeWan/vibe-dev-cli/discussions)
 -   📧 Direct Contact: See project repository contact information
-
-## 🚀 Roadmap
-
-### v1.1.0 Plans
-
--   [ ] Jira integration support
--   [ ] Slack/Discord notification integration
--   [ ] Advanced AI Agent automation
--   [ ] Additional language support (Japanese, Chinese)
-
-### v1.2.0 Plans
-
--   [ ] Web dashboard interface
--   [ ] Enhanced team collaboration features
--   [ ] Session analysis and insights
--   [ ] Plugin system
 
 ---
 

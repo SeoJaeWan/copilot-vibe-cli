@@ -2,7 +2,7 @@
     "program": {
         "name": "vibe",
         "description": "🚀 Vibe Dev CLI - GitHub Copilot Chat integration for maximum coding productivity",
-        "version": "3.0.0"
+        "version": "1.1.0"
     },
     "init": {
         "title": "🤖 Vibe CLI AI Agent Integrated Learning Instructions",
@@ -215,17 +215,24 @@
                 "success": "✅ Workspace successfully initialized!",
                 "configFile": "📁 Config file: {path}/.vibe-config.json",
                 "nextSteps": "🎉 You can now use the following commands:",
-                "commands": ["vibe linear issue list", "vibe linear issue create --title 'title' --description 'description'"]
+                "commands": [
+                    "vibe linear issue list",
+                    "vibe linear issue create --title 'title' --description 'description'"
+                ]
             }
         },
         "issue": {
             "description": "Linear issue management - View, create and manage issues",
+            "view": {
+                "description": "View detailed information about a specific issue",
+                "argument": "Issue ID (internal) or Identifier (e.g., ABC-123)"
+            },
             "list": {
                 "description": "Get Linear issues list (based on configured team/project)",
                 "option": "Number of issues to retrieve (default: 10)",
                 "noIssues": "📭 No issues matching the criteria.",
                 "title": "\n📋 Linear issues list (max {limit}):\n",
-                "tip": "💡 Tip: Use 'vibe linear copilot <issueId>' command to share issue info with AI",
+                "tip": "💡 Tip: Use 'vibe linear issue <issueId>' command to view issue details",
                 "status": "Status:",
                 "createdAt": "Created:"
             },
